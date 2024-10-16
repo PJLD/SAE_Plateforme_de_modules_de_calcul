@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+nav {
+    display: flex;
+    flex-direction: row;
+    background-color: #1c305f;
+    color: white;
+    padding: 15px;
+    justify-content: center;
+}
+nav a {
+    text-decoration: none;       /* Supprime le soulignement */
+    color: white;                 /* Couleur du texte */
+    font-size: 18px;             /* Taille de la police */
+    padding: 40px;               /* Ajoute du padding pour rendre les liens plus grands */
+    transition: color 0.3s;      /* Animation lors du survol */
+}
+nav a:hover {
+    color: #B8B8B8;              /* Change la couleur au survol */
+}
+nav li {
+    display: inline-block;
+}
+.header {
+    background-color: white;
+    padding: 30px;
+    text-align: center;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;     /* Aligne les éléments verticalement */
+    height: 5px;
+}
+.logo {
+    height: 50px;
+}
+h1 {
+    flex-grow: 1;
+    font-family: cursive;
+    font-size: 27px;
+}
+h2 {
+    text-align: center;
+    font-family: cursive;
+    font-size: 27px;
+    padding-top: 75px;
+    padding-bottom: 50px;
+}
+.login {
+    height: 30px;                     /* Ajuste la hauteur du bouton */
+    width: 100px;                     /* Ajuste la largeur du bouton */
+    background-color: black;        /* Couleur de fond bleue */
+    color: white;                     /* Couleur du texte */
+    border: none;                     /* Supprime la bordure par défaut */
+    border-radius: 20px;              /* Bordure arrondie pour un effet plus doux */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);  /* Légère ombre */
+    cursor: pointer;                  /* Curseur pointer pour indiquer un bouton cliquable */
+    font-size: 16px;                  /* Taille du texte */
+    font-weight: bold;                /* Texte en gras */
+    gap: 10px;                        /* Espace entre l'image et le texte */
+}
+.login:hover {
+    background-color: #0056b3;        /* Change la couleur de fond au survol */
+}
+form {
+    display: flex;
+    flex-direction: column;
+    width: 300px;                     /* Largeur du formulaire */
+    margin: auto;                   /* Centre le formulaire horizontalement */
+    padding: 20px;
+    background-color: #f7f7f7;        /* Couleur de fond du formulaire */
+    border-radius: 10px;              /* Bordures arrondies */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Légère ombre */
+}
+
+form label {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    font-size: 16px;
+    color: #333;
+}
+
+form input {
+    padding: 3px;
+    border: 1px solid #ccc;           /* Bordure gris clair */
+    border-radius: 5px;               /* Bordure arrondie */
+}
+
+form button {
+    margin: 40px;
+    padding: 10px;
+    background-color: #0056b3;        /* Couleur bleue pour le bouton */
+    color: white;                     /* Texte blanc */
+    border: none;                     /* Supprime la bordure par défaut */
+    border-radius: 5px;               /* Bordures arrondies */
+    cursor: pointer;                  /* Curseur de clic */
+    font-size: 16px;
+}
+
+form button:hover {
+    background-color: #1d3364;        /* Couleur plus foncée au survol */
+}
+form select {
+    height: 30px;
+    text-align: center;
+    padding: 3px;
+    border: 1px solid #ccc;           /* Bordure gris clair */
+    border-radius: 5px;               /* Bordure arrondie */
+}
+footer {
+    color: white;
+    margin-top: 200px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #1c305f;
+}
+p {
+    text-align: center;
+    font-family: cursive;
+    font-size: 16px;
+    margin-top: 30px;
+}
+.ImageAccueil {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;  /* Trois colonnes de largeur égale */
+    width: 100%;                         /* Le conteneur occupe toute la largeur de l'écran */
+    overflow: hidden;                    /* Cache les parties débordantes */
+    height: 400px;                       /* Hauteur du bandeau */
+    background-color: rgba(0, 0, 0, 0.9);  /* Noir avec 90% d'opacité */
+}
+
+.ImageAccueil img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;            /* Remplit chaque section d'image */
+}
+
+.ImageAccueil img:hover {
+    transform: scale(1.05);       /* Effet de zoom au survol pour plus d'interaction */
+    transition: transform 0.8s ease; /* Animation fluide du zoom */
+}
+
+.video-container {
+    display: flex;
+    justify-content: center;  /* Centre horizontalement */
+    background-color: #1c305f;  /* Couleur de fond de l'encadré */
+    padding: 20px;             /* Espace intérieur (padding) autour de la vidéo */
+    border: 2px solid #1c305f;    /* Bordure de l'encadré */
+    border-radius: 10px;       /* Bords arrondis pour un effet plus doux */
+    width: fit-content;        /* Ajuste la largeur en fonction du contenu (la vidéo) */
+    margin: 0 auto;            /* Centre l'encadré sur la page */
+}
+
+.contacts-list {
+    margin: 0 auto;
+    background-color: #f5f5f5;      /* Couleur de fond douce pour l'encadré */
+    padding: 20px;                  /* Espace autour du texte */
+    border-radius: 10px;            /* Bords arrondis pour un effet plus doux */
+    width: fit-content;             /* Ajuste la largeur en fonction du contenu */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Ajoute une ombre */
+}
+
+.contacts-list h2 {
+    font-size: 22px;                /* Taille de police légèrement plus grande */
+    color: #333;                    /* Couleur du texte du titre */
+}
+
+.contacts-list ul li {
+    font-size: 18px;                /* Taille de police des éléments */
+    margin: 10px 0;                 /* Espace entre chaque élément de la liste */
+    padding: 10px;                  /* Ajoute de l'espace à l'intérieur de chaque élément */
+    background-color: #ffffff;      /* Fond blanc pour les items */
+    border-radius: 5px;             /* Coins légèrement arrondis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);  /* Petite ombre sous chaque item */
+    display: flex;                  /* Utilise Flexbox pour aligner l'icône et le texte */
+    align-items: center;            /* Aligne l'icône et le texte au centre */
+    transition: transform 0.3s ease; /* Animation lors du survol */
+}
+
+.contacts-list ul li:hover {
+    transform: scale(1.05);         /* Agrandit légèrement au survol */
+}
+
+.contacts-list ul li::before {
+    content: "\2709";               /* Icône de lettre pour chaque email */
+    font-size: 20px;                /* Taille de l'icône */
+    color: #1c305f;                 /* Couleur de l'icône */
+    margin-right: 10px;             /* Espace entre l'icône et l'email */
+}
