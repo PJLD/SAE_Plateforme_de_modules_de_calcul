@@ -13,10 +13,10 @@
 </div>
 <nav>
     <ol>
-        <li><a href="Accueil.html">Accueil</a></li>
-        <li><a href="ModuleDeCalcul.html">Module de Calcul</a></li>
-        <li><a href="CalculCSV.html">Calculer via CSV</a></li>
-        <li><a href="Contacts.html">Contacts</a></li>
+        <li><a href="Accueil.php">Accueil</a></li>
+        <li><a href="ModuleDeCalcul.php">Module de Calcul</a></li>
+        <li><a href="CalculCSV.php">Calculer via CSV</a></li>
+        <li><a href="Contacts.php">Contacts</a></li>
     </ol>
 </nav>
 <h2>Créer un compte</h2>
@@ -35,7 +35,7 @@
     <input type='password' name='Confirmer le Mot de Passe' id="ConfirmerMdp" placeholder='Mot de passe'>
     <button type='submit' name='Connexion' >Connexion</button>
 </form>
-<p><a href="Login.html">J'ai déja un compte</a></p>
+<p><a href="Login.php">J'ai déja un compte</a></p>
 <footer>
     <h1 style="padding-top: 30px;">Membres de l'équipe</h1>
     <p>INF2-FI-A</p>
