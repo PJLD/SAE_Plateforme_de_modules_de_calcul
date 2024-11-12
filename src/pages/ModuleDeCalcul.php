@@ -1,22 +1,22 @@
 <?php
 include("../templates/header.html");
-echo"<title>accueil</title></head>";
-echo"<body>";
+echo"<title>accueil</title></head>
+echo<body>";
 include("../templates/navbar.html");
-echo"<h2>Veuillez saisir vos séries</h2>";
-echo"<form method='post'>";
-echo"<label for='SerieA'>Série a</label>";
-echo"<input type='text' name='SerieA' id='SerieA' placeholder='1,2,3,...'>";
-echo"<label for='SerieB'>Série b</label>";
-echo"<input type='text' name='SerieB' id='SerieB' placeholder='1,2,3,...'>";
-echo"<button type='submit' name='OK' >OK</button>";
-echo"<label for='calcul'>Sélectionnez votre calcul</label>";
-echo"<select name='calcul' id='calcul'>";
-echo"<option value='moyenne'>Moyenne</option>";
-echo"<option value='écarttype'>Ecart-type</option>";
-echo"<option value='esperance'>Esperance</option>";
-echo"<option value='variance'>Variance</option>";
-echo"</select>";
-echo"<button type='submit' name='Calculer' >Calculer</button>";
-echo"</form>";
+echo"<h2>Veuillez saisir vos séries</h2>
+<form method='post'>
+<label for='SerieA'>Série a</label>
+<input type='text' name='SerieA' id='SerieA' placeholder='1,2,3,...'>
+<label for='SerieB'>Série b</label>
+<input type='text' name='SerieB' id='SerieB' placeholder='1,2,3,...'>
+<button type='submit' name='OK' >OK</button>
+<label for='calcul'>Sélectionnez votre calcul</label>
+<select name='calcul' id='calcul'>
+<option value='moyenne'>Moyenne</option>
+<option value='écarttype'>Ecart-type</option>
+<option value='esperance'>Esperance</option>
+<option value='variance'>Variance</option>
+</select>
+<button type='submit' name='Calculer' >Calculer</button>
+</form>";
 include("../templates/footer.html");
