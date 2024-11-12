@@ -8,7 +8,7 @@ echo"<form method='post'>";
 echo"<label for='Nom'>Nom</label>";
 echo"<input type='text' name='Nom' id='Nom' placeholder='Nom'>";
 echo"<label for='Prenom'>Prénom</label>";
-echo"<input type='text' name='Prenom' id='Prenom' placeholder='Prénom'>echo";
+echo"<input type='text' name='Prenom' id='Prenom' placeholder='Prénom'>";
 echo"<label for='Mail'>Mail</label>";
 echo"<input type='email' name='Mail' id='Mail' placeholder='Adresse mail'>";
 echo"<label for='Login'>Login</label>";
