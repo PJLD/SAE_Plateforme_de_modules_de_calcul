@@ -11,5 +11,5 @@ echo"<label for='Mdp'>Mot de Passe</label>";
 echo"<input type='password' name='Mot de Passe' id='Mdp' placeholder='Mot de passe'>";
 echo"<button type='submit' name='Connexion' >Connexion</button>";
 echo"</form>";
-echo"<p><a href='Signin.php'>Créer un compte</a></p>";
+echo"<p><a href='SignIn.php'>Créer un compte</a></p>";
 include("../templates/footer.html");
