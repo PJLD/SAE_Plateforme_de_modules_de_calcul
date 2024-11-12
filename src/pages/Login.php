@@ -13,10 +13,10 @@
 </div>
 <nav>
     <ol>
-        <li><a href="Accueil.html">Accueil</a></li>
+        <li><a href="Accueil.php">Accueil</a></li>
         <li><a href="ModuleDeCalcul.html">Module de Calcul</a></li>
-        <li><a href="CalculCSV.html">Calculer via CSV</a></li>
-        <li><a href="Contacts.html">Contacts</a></li>
+        <li><a href="CalculCSV.php">Calculer via CSV</a></li>
+        <li><a href="Contacts.php">Contacts</a></li>
     </ol>
 </nav>
 <h2>Veuillez vous connecter</h2>
