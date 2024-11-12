@@ -13,7 +13,7 @@
 </div>
 <nav>
     <ol>
-        <li><a href="Accueil.html">Accueil</a></li>
+        <li><a href="Accueil.php">Accueil</a></li>
         <li><a href="ModuleDeCalcul.html">Module de Calcul</a></li>
         <li><a href="CalculCSV.html">Calculer via CSV</a></li>
         <li><a href="Contacts.html">Contacts</a></li>
