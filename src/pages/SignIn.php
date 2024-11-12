@@ -1,23 +1,23 @@
 <?php
 include("../templates/header.html");
-echo"<title>accueil</title></head>";
-echo"<body>";
+echo"<title>accueil</title></head>
+<body>";
 include("../templates/navbar.html");
-echo"<h2>Créer un compte</h2>";
-echo"<form method='post'>";
-echo"<label for='Nom'>Nom</label>";
-echo"<input type='text' name='Nom' id='Nom' placeholder='Nom'>";
-echo"<label for='Prenom'>Prénom</label>";
-echo"<input type='text' name='Prenom' id='Prenom' placeholder='Prénom'>";
-echo"<label for='Mail'>Mail</label>";
-echo"<input type='email' name='Mail' id='Mail' placeholder='Adresse mail'>";
-echo"<label for='Login'>Login</label>";
-echo"<input type='text' name='Login' id='Login' placeholder='Login'>";
-echo"<label for='Mdp'>Mot de passe</label>";
-echo"<input type='password' name='Mot de Passe' id='Mdp' placeholder='Mot de passe'>";
-echo"<label for='ConfirmerMdp'>Confirmer le mot de passe</label>";
-echo"<input type='password' name='Confirmer le Mot de Passe' id='ConfirmerMdp' placeholder='Mot de passe'>";
-echo"<button type='submit' name='Connexion' >Connexion</button>";
-echo"</form>";
-echo"<p><a href='Login.php'>J'ai déja un compte</a></p>";
+echo"<h2>Créer un compte</h2>
+<form method='post'>
+<label for='Nom'>Nom</label>
+<input type='text' name='Nom' id='Nom' placeholder='Nom'>
+<label for='Prenom'>Prénom</label>
+<input type='text' name='Prenom' id='Prenom' placeholder='Prénom'>
+<label for='Mail'>Mail</label>
+<input type='email' name='Mail' id='Mail' placeholder='Adresse mail'>
+<label for='Login'>Login</label>
+<input type='text' name='Login' id='Login' placeholder='Login'>
+<label for='Mdp'>Mot de passe</label>
+<input type='password' name='Mot de Passe' id='Mdp' placeholder='Mot de passe'>
+<label for='ConfirmerMdp'>Confirmer le mot de passe</label>
+<input type='password' name='Confirmer le Mot de Passe' id='ConfirmerMdp' placeholder='Mot de passe'>
+<button type='submit' name='Connexion' >Connexion</button>
+</form>
+<p><a href='Login.php'>J'ai déja un compte</a></p>";
 include("../templates/footer.html");
