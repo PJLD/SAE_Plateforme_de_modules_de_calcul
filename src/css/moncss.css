@@ -24,7 +24,7 @@ nav li {
     display: inline-block;
 }
 .header {
-    background-color: white;
+    background-color: #bcbec6;
     padding: 30px;
     text-align: center;
     margin-bottom: 0;
@@ -190,4 +190,40 @@ p {
     font-size: 20px;                /* Taille de l'icône */
     color: #1c305f;                 /* Couleur de l'icône */
     margin-right: 10px;             /* Espace entre l'icône et l'email */
+}
+
+.TexteExplicatif {
+    color: white;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 40px auto; /* Centrer le bloc et ajouter de l'espace autour */
+    padding: 50px;
+    max-width: 50%; /* Largeur maximum du bloc */
+    background-color: #8B90AC; /* Arrière-plan léger pour contraster avec le texte */
+    border-radius: 15px; /* Coins arrondis */
+}
+
+.TexteExplicatif h1 {
+    font-size: 28px;
+    text-align: center; /* Centrer le titre */
+    padding: 10px; /* Espacement pour l'aération */
+    color: #16264b; /* Couleur sombre pour un bon contraste */
+}
+
+.TexteExplicatif ul {
+    list-style-type: upper-roman;
+    margin-left: 30px;
+    padding: 15px;
+}
+
+.TexteExplicatif ul li {
+    margin-bottom: 30px; /* Espacement entre les éléments de la liste */
+    font-family: 'Roboto', sans-serif;
+    font-size: 17px;
+}
+
+.TexteExplicatif p {
+    margin-bottom: 20px; /* Espacement entre les paragraphes */
+    font-size: 17px;
+    color: white; /* Texte légèrement moins foncé pour améliorer la lisibilité */
 }
