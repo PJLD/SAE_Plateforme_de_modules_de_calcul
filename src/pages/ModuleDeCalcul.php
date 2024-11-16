@@ -1,7 +1,7 @@
 <?php
 include("../templates/header.html");
 echo"<title>accueil</title></head>
-echo<body>";
+<body>";
 include("../templates/navbar.html");
 echo"<h2>Veuillez saisir vos séries</h2>
 <form method='post'>
