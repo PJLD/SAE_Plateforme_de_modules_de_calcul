@@ -4,11 +4,11 @@ include("../templates/header.html");
 echo"<title>accueil</title></head>
 <body>";
 include("../templates/navbar.html");
-echo"<h2>Veuillez saisir vos séries</h2>
+echo"<h2>Veuillez saisir vos données</h2>
 <form method='post'>
-<label for='SerieA'>Série a</label>
+<label for='SerieA'>Série (xx,xx,xx,...)</label>
 <input type='text' name='SerieA' id='SerieA' placeholder='a,b,c,...'>
-<label for='Probabilites'>Probabilités</label>
+<label for='Probabilites'>Probabilités (yy,yy,yy,...)</label>
 <input type='text' name='Probabilites' id='Probabilites' placeholder='0.1,0.2,0.3,...'>
 <label for='calcul'>Sélectionnez votre calcul</label>
 <select name='calcul' id='calcul'>
