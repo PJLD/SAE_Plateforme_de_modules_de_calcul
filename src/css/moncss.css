@@ -63,51 +63,85 @@ h2 {
 .login:hover {
     background-color: #0056b3;        /* Change la couleur de fond au survol */
 }
+
 form {
     display: flex;
     flex-direction: column;
-    width: 300px;                     /* Largeur du formulaire */
-    margin: auto;                   /* Centre le formulaire horizontalement */
-    padding: 20px;
-    background-color: #f7f7f7;        /* Couleur de fond du formulaire */
-    border-radius: 10px;              /* Bordures arrondies */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Légère ombre */
+    max-width: 400px;                  /* Limite la largeur du formulaire */
+    margin: 50px auto;                 /* Centre le formulaire */
+    padding: 25px;
+    border-radius: 15px;               /* Bordures arrondies */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15); /* Ombre plus visible */
+    font-family: 'Arial', sans-serif;  /* Police moderne */
+    animation: fadeIn 0.8s ease-in-out;
 }
 
 form label {
-    margin-bottom: 15px;
-    margin-top: 15px;
-    font-size: 16px;
-    color: #333;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 17px;                   /* Taille plus grande pour le texte */
+    color: #555;                       /* Gris doux pour le contraste */
+    font-weight: bold;                 /* Texte en gras */
 }
 
-form input {
-    padding: 3px;
-    border: 1px solid #ccc;           /* Bordure gris clair */
-    border-radius: 5px;               /* Bordure arrondie */
+form input, form select {
+    padding: 12px 15px;                /* Ajoute de l'espace à l'intérieur */
+    border: 1px solid #ddd;            /* Bordure légère */
+    border-radius: 8px;                /* Arrondir les bords */
+    font-size: 16px;                   /* Taille du texte */
+    color: #333;                       /* Texte gris foncé */
+    margin-bottom: 30px;
+    transition: all 0.3s ease;         /* Animation fluide */
+}
+
+form input:focus, form select:focus {
+    border-color: #0056b3;             /* Bordure bleue au focus */
+    box-shadow: 0 0 8px rgba(0, 86, 179, 0.3); /* Effet lumineux */
+    outline: none;
 }
 
 form button {
-    margin: 40px;
-    padding: 10px;
-    background-color: #0056b3;        /* Couleur bleue pour le bouton */
-    color: white;                     /* Texte blanc */
-    border: none;                     /* Supprime la bordure par défaut */
-    border-radius: 5px;               /* Bordures arrondies */
-    cursor: pointer;                  /* Curseur de clic */
-    font-size: 16px;
+    width: 55%;
+    margin: auto;
+    padding: 12px;
+    background-color: #0056b3;         /* Couleur bleue */
+    color: white;                      /* Texte blanc */
+    border: none;
+    border-radius: 8px;                /* Arrondir les bords */
+    cursor: pointer;
+    font-size: 18px;                   /* Taille du texte */
+    font-weight: bold;                 /* Texte en gras */
+    transition: background-color 0.3s ease; /* Transition douce */
 }
 
 form button:hover {
-    background-color: #1d3364;        /* Couleur plus foncée au survol */
+    background-color: #003f8c;         /* Couleur bleue plus foncée au survol */
+
 }
-form select {
-    height: 30px;
-    text-align: center;
-    padding: 3px;
-    border: 1px solid #ccc;           /* Bordure gris clair */
-    border-radius: 5px;               /* Bordure arrondie */
+
+.resultatConteneur {
+    height: 120px;
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    background-color: #f9f9f9;         /* Fond gris clair */
+    border: 1px solid #ddd;            /* Bordure légère */
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    font-family: 'Arial', sans-serif;
+    text-align: center;                /* Texte centré */
 }
+
+.resultatConteneur h3 {
+    color: #0056b3;                    /* Bleu principal */
+    font-size: 20px;                   /* Augmente la taille */
+}
+
+.resultatConteneur p {
+    color: #333;                       /* Texte gris foncé */
+    font-size: 18px;                   /* Taille plus lisible */
+}
+
 footer {
     color: white;
     margin-top: 200px;
