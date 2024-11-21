@@ -24,3 +24,9 @@ function tableau($file){
         header("Location: CalculCSV.php?error");
     }
 }
+
+//fonction pour calculer la moyenne
+function moyenne($serie){
+    if (count($serie) == 0 ) return 0;
+    return array_sum($serie)/count($serie);
+}
