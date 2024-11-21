@@ -50,3 +50,9 @@ function variance($serie, $probabilites){
     }
     return $variance;
 }
+
+//fonction pour calculer l'ecart-type
+function ecartType($serie, $probabilites){
+    $variance = variance($serie, $probabilites);
+    return sqrt($variance);
+}
