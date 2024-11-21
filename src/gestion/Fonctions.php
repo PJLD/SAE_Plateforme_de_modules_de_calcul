@@ -30,3 +30,13 @@ function moyenne($serie){
     if (count($serie) == 0 ) return 0;
     return array_sum($serie)/count($serie);
 }
+
+//fonction pour calculer l'esperance
+function esperance($serie, $probabilites){
+    if (count($serie) != count($probabilites)) return 0;
+    $esperance = 0;
+    foreach($serie as $index => $valeur){
+        $esperance += $valeur*$probabilites[$index];
+    }
+    return $esperance;
+}
