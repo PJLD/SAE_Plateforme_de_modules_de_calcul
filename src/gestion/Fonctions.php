@@ -40,3 +40,13 @@ function esperance($serie, $probabilites){
     }
     return $esperance;
 }
+
+//fonction pour calculer la variance
+function variance($serie, $probabilites){
+    $esperance = esperance($serie, $probabilites);
+    $variance = 0;
+    foreach($serie as $index => $valeur){
+        $variance += $probabilites[$index]*pow($valeur - $esperance, 2);
+    }
+    return $variance;
+}
