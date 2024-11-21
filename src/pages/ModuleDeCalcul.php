@@ -47,7 +47,11 @@ if (isset($_POST['Calculer'])) {
     }
 
     // Afficher le résultat
-    echo "<p>Résultat du calcul ($calcul) : <strong>$resultat</strong></p>";
+    echo "
+    <div class='resultatConteneur'>
+        <h3>Résultat du calcul : $calcul</h3>
+        <p><strong>$resultat</strong></p>
+    </div>";
 }
 
 include("../templates/footer.html");
