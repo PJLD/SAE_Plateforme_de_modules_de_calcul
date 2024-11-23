@@ -1,6 +1,6 @@
 <?php
 include("../templates/header.html");
-echo"<title>accueil</title></head>
+echo"<title>Calcul CSV</title></head>
 <body>";
 include("../templates/navbar.html");
 echo"<h2>Calculer à partir d'un fichier CSV</h2>
