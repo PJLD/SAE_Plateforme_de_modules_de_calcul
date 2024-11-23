@@ -1,6 +1,6 @@
 <?php
 include("../templates/header.html");
-echo"<title>accueil</title></head>
+echo"<title>Log In</title></head>
 <body>";
 include("../templates/navbar.html");
 echo"<h2>Veuillez vous connecter</h2>
