@@ -6,21 +6,21 @@ include("../templates/navbar.html");
 echo"<h2>Veuillez vous connecter</h2>
 <form method='post'>
 <label for='Login'>Login</label>
-<input type='text' name='Login' id='Login' placeholder='Login'>
+<input type='text' name='Login' id='Login' placeholder='Login' required>
 <label for='Mdp'>Mot de Passe</label>
-<input type='password' name='Mot de Passe' id='Mdp' placeholder='Mot de passe'>
+<input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
 <button type='submit' name='Connexion' >Connexion</button>
 </form>
 <p><a href='MotDePasseOublie.php'>Mot de passe oublié ?</a></p>
 <p><a href='SignIn.php'>Créer un compte</a></p>";
 
-if(isset($_POST['ok'])){
+if(isset($_POST['Connexion'])){
     $login = htmlspecialchars($_POST['Login']);
     $mdp = htmlspecialchars($_POST['Mdp']);
     $mdp2 = md5($mdp);
-    $sql = "SELECT * FROM Comptes WHERE Login=? and MDP=?";
     $cnx = mysqli_connect("localhost","root","");
-    $bd = mysqli_select_db($cnx, "SAES3");
+    $sql = "SELECT * FROM Comptes WHERE Login=? and MDP=?";
+    $bd = mysqli_select_db($cnx, "SAE");
     $stmt = mysqli_prepare($cnx, $sql);
     mysqli_stmt_bind_param($stmt, "ss", $login, $mdp2);
     mysqli_stmt_execute($stmt);
