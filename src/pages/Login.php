@@ -11,6 +11,7 @@ echo"<h2>Veuillez vous connecter</h2>
 <input type='password' name='Mot de Passe' id='Mdp' placeholder='Mot de passe'>
 <button type='submit' name='Connexion' >Connexion</button>
 </form>
+<p><a href='MotDePasseOublie.php'>Mot de passe oublié ?</a></p>
 <p><a href='SignIn.php'>Créer un compte</a></p>";
 
 if(isset($_POST['ok'])){
