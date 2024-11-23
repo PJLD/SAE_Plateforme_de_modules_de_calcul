@@ -1,6 +1,6 @@
 <?php
 include("../templates/header.html");
-echo"<title>accueil</title></head>
+echo"<title>Contacts</title></head>
 <body>";
 include("../templates/navbar.html");
 echo"<div style='height: 50px;'></div>
