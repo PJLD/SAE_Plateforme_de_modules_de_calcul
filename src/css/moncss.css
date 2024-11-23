@@ -254,10 +254,11 @@ p {
     margin-bottom: 30px; /* Espacement entre les éléments de la liste */
     font-family: 'Roboto', sans-serif;
     font-size: 17px;
+    color: #16264b;
 }
 
 .TexteExplicatif p {
     margin-bottom: 20px; /* Espacement entre les paragraphes */
     font-size: 17px;
-    color: white; /* Texte légèrement moins foncé pour améliorer la lisibilité */
+    color: #16264b; /* Texte légèrement moins foncé pour améliorer la lisibilité */
 }
