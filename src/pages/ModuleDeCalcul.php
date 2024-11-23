@@ -1,7 +1,7 @@
 <?php
 require_once ("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>accueil</title></head>
+echo"<title>Module de Calcul</title></head>
 <body>";
 include("../templates/navbar.html");
 echo"<h2>Veuillez saisir vos données</h2>
