@@ -26,9 +26,9 @@ if(isset($_POST['Connexion'])){
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
     if(mysqli_num_rows($res) == 1){
-        echo "<p style='font-size: 50px;'>Login ok</p>";
+        echo "<p>Login ok</p>";
     } else {
-        echo "<p style='font-size: 50px;'>Login ou mot de passe incorrect</p>";
+        echo "<p>Login ou mot de passe incorrect</p>";
     }
 }
 
