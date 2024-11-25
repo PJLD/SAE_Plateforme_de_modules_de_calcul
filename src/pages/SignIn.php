@@ -7,7 +7,7 @@ echo"<h2>Créer un compte</h2>
 <form method='post'>
 <label for='Login'>Login</label>
 <input type='text' name='Login' id='Login' placeholder='Login'>
-<label for='Mdp'>Mot de passe</label>
+<label for='Mdp'>Mot de Passe</label>
 <input type='password' name='Mot de Passe' id='Mdp' placeholder='Mot de passe'>
 <button type='submit' name='Inscription'>S'inscrire</button>
 </form>
