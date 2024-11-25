@@ -30,6 +30,11 @@ if (isset($_POST["Inscription"])) {
     $mdp2 = md5($Mdp);
     $captcha = htmlspecialchars($_POST['captcha']);
 
+    if (!isset($_COOKIE['captcha']) || $captcha != $_COOKIE['captcha']) {
+        echo "<p style='font-size: 50px;'>Captcha incorrect</p>";
+        exit();
+    }
+
     $cnx = mysqli_connect("localhost", "root", "");
     $bd = mysqli_select_db($cnx, "SAE");
 
@@ -39,14 +44,10 @@ if (isset($_POST["Inscription"])) {
     mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
 
     if (mysqli_stmt_execute($stmt)) {
-        if (isset($_COOKIE['captcha']) && $captcha == $_COOKIE['captcha']) {
-            echo "<p style='font-size: 50px;'>Inscription réussie !</p>";
+        echo "<p style='font-size: 50px;'>Inscription réussie !</p>";
         } else {
             echo "<p style='font-size: 50px;'>Captcha incorrect</p>";
         }
-    } else {
-        echo "<p>Erreur lors de l'inscription.</p>";
-    }
 
     mysqli_stmt_close($stmt);
     mysqli_close($cnx);
