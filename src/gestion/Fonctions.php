@@ -86,3 +86,25 @@ function varianceInverseGaussienne($mu, $lambda) {
 function ecartTypeInverseGaussienne($mu, $lambda) {
     return sqrt(varianceInverseGaussienne($mu, $lambda));
 }
+// Fonction pour calculer la fonction de répartition (CDF) de la loi normale standard
+
+function normalCDF($z) {
+    return 0.5 * (1 + erf($z / sqrt(2)));
+}
+
+// Fonction pour calculer la fonction d'erreur (Erf) pour la CDF de la normale
+function erf($x) {
+    $t = 1.0 / (1.0 + 0.3275911 * $x);
+    $tau = $t * exp(-$x * $x - 1.26551223 + 1.00002368 * $t + 0.37409196 * $t * $t + 0.09678418 * $t * $t * $t - 0.18628806 * $t * $t * $t * $t);
+    return $tau;
+}
+
+// Fonction pour calculer la fonction de répartition de la loi inverse-gaussienne
+function fonctionDeRepartitionInverseGaussienne($x, $mu, $lambda) {
+    $sigma = ecartTypeInverseGaussienne($mu, $lambda);
+
+    $term1 = normalCDF(($x - $mu) / $sigma);
+    $term2 = exp((2 * $mu / $lambda) - ($x / $mu)) * normalCDF(-($x - $mu) / $sigma);
+
+    return $term1 - $term2;
+}
