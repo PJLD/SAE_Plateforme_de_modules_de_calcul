@@ -57,8 +57,8 @@ function ecartType($serie, $probabilites){
     return sqrt($variance);
 }
 // fonction pour calculer densité de probabiblité de la loi inverse gaussienne
-function loiInverseGaussienne($µ, $lambda) {
-    if ($µ <= 0 || $lambda <= 0) {
+function loiInverseGaussienne($mu, $lambda) {
+    if ($mu <= 0 || $lambda <= 0) {
         throw new InvalidArgumentException("Les paramètres µ et lambda doivent être positifs.");
     }
 
@@ -67,7 +67,22 @@ function loiInverseGaussienne($µ, $lambda) {
 
     $y = sqrt(-2 * log($a));
 
-    $x1 = $µ + $µ * $µ / (2 * $lambda) * ($y + sqrt($y * $y + 4 * $lambda * $µ));
+    $x1 = $mu + $mu * $mu / (2 * $lambda) * ($y + sqrt($y * $y + 4 * $lambda * $mu));
 
     return $x1;
+}
+
+// Fonction pour calculer l'espérance (moyenne) de la loi inverse-gaussienne
+function esperanceInverseGaussienne($mu) {
+    return $mu;
+}
+
+// Fonction pour calculer la variance de la loi inverse-gaussienne
+function varianceInverseGaussienne($mu, $lambda) {
+    return pow($mu, 3) / $lambda;
+}
+
+// Fonction pour calculer l'écart-type de la loi inverse-gaussienne
+function ecartTypeInverseGaussienne($mu, $lambda) {
+    return sqrt(varianceInverseGaussienne($mu, $lambda));
 }
