@@ -1,4 +1,5 @@
 <?php
+require_once ("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>AdminWeb</title>
 <style>
@@ -47,8 +48,10 @@ if (isset($_GET['delete'])) {
     mysqli_stmt_bind_param($stmt, "s", $login);
     if (mysqli_stmt_execute($stmt)) {
         echo "<p style='color: green; text-align: center;'>Utilisateur supprimé avec succès.</p>";
+        log_suppression($login, true);
     } else {
         echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression.</p>";
+        log_suppression($login, false);
     }
     mysqli_stmt_close($stmt);
 }
@@ -71,7 +74,7 @@ if ($lignes) {
     foreach ($lignes as $key => $value) {
         echo "<th>$key</th>";
     }
-    echo "<th>Supprimer</th>";
+    echo "<th>Supprimer Compte</th>";
     echo "</tr>";
 
     do {
@@ -79,7 +82,11 @@ if ($lignes) {
         foreach ($lignes as $key => $value) {
             echo "<td>$value</td>";
         }
-        echo "<td><a href='?delete=" . $lignes['Login'] . "' class='delete-link'>Supprimer</a></td>";
+        if ($lignes['Login'] != "sysadmin" and $lignes['Login'] != "adminweb") {
+            echo "<td><a href='?delete=" . $lignes['Login'] . "' class='delete-link'>Supprimer</a></td>";
+        }else{
+            echo "<td>non supprimable</td>";
+        }
         echo "</tr>";
     } while ($lignes = mysqli_fetch_assoc($result));
 } else {
