@@ -56,3 +56,55 @@ function ecartType($serie, $probabilites){
     $variance = variance($serie, $probabilites);
     return sqrt($variance);
 }
+// fonction pour calculer densité de probabiblité de la loi inverse gaussienne
+function loiInverseGaussienne($mu, $lambda) {
+    if ($mu <= 0 || $lambda <= 0) {
+        throw new InvalidArgumentException("Les paramètres µ et lambda doivent être positifs.");
+    }
+
+    $a = mt_rand() / mt_getrandmax();
+    $b = mt_rand() / mt_getrandmax();
+
+    $y = sqrt(-2 * log($a));
+
+    $x1 = $mu + $mu * $mu / (2 * $lambda) * ($y + sqrt($y * $y + 4 * $lambda * $mu));
+
+    return $x1;
+}
+
+// Fonction pour calculer l'espérance (moyenne) de la loi inverse-gaussienne
+function esperanceInverseGaussienne($mu) {
+    return $mu;
+}
+
+// Fonction pour calculer la variance de la loi inverse-gaussienne
+function varianceInverseGaussienne($mu, $lambda) {
+    return pow($mu, 3) / $lambda;
+}
+
+// Fonction pour calculer l'écart-type de la loi inverse-gaussienne
+function ecartTypeInverseGaussienne($mu, $lambda) {
+    return sqrt(varianceInverseGaussienne($mu, $lambda));
+}
+// Fonction pour calculer la fonction de répartition (CDF) de la loi normale standard
+
+function normalCDF($z) {
+    return 0.5 * (1 + erf($z / sqrt(2)));
+}
+
+// Fonction pour calculer la fonction d'erreur (Erf) pour la CDF de la normale
+function erf($x) {
+    $t = 1.0 / (1.0 + 0.3275911 * $x);
+    $tau = $t * exp(-$x * $x - 1.26551223 + 1.00002368 * $t + 0.37409196 * $t * $t + 0.09678418 * $t * $t * $t - 0.18628806 * $t * $t * $t * $t);
+    return $tau;
+}
+
+// Fonction pour calculer la fonction de répartition de la loi inverse-gaussienne
+function fonctionDeRepartitionInverseGaussienne($x, $mu, $lambda) {
+    $sigma = ecartTypeInverseGaussienne($mu, $lambda);
+
+    $term1 = normalCDF(($x - $mu) / $sigma);
+    $term2 = exp((2 * $mu / $lambda) - ($x / $mu)) * normalCDF(-($x - $mu) / $sigma);
+
+    return $term1 - $term2;
+}
