@@ -26,7 +26,11 @@ if(isset($_POST['Connexion'])){
     mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
     if(mysqli_num_rows($res) == 1){
-        echo "<p>Login ok</p>";
+        session_start(); // Démarrer la session
+        $_SESSION['login'] = $login; // Enregistrer le login
+        $_SESSION['mdp'] = $mdp;     // Enregistrer le mot de passe
+        header("Location: Profil.php"); // Redirection vers la page de profil
+        exit();
     } else {
         echo "<p>Login ou mot de passe incorrect</p>";
     }
