@@ -56,3 +56,18 @@ function ecartType($serie, $probabilites){
     $variance = variance($serie, $probabilites);
     return sqrt($variance);
 }
+// fonction pour calculer la densité de probabiblité de la loi inverse gaussienne
+function loiInverseGaussienne($mu, $lambda) {
+    if ($mu <= 0 || $lambda <= 0) {
+        throw new InvalidArgumentException("Les paramètres mu et lambda doivent être positifs.");
+    }
+
+    $p = mt_rand() / mt_getrandmax();
+    $q = mt_rand() / mt_getrandmax();
+
+    $y = sqrt(-2 * log($p));
+
+    $x1 = $mu + $mu * $mu / (2 * $lambda) * ($y + sqrt($y * $y + 4 * $lambda * $mu));
+
+    return $x1;
+}
