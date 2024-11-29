@@ -36,13 +36,15 @@ include("../templates/navbar.html");
 $cnx = mysqli_connect("localhost", "root", "");
 $bd = mysqli_select_db($cnx, "SAE");
 
+
+
 //Suppression d'utilisateurs
 
 if (isset($_GET['delete'])) {
     $login = $_GET['delete'];
     $suppression = "DELETE FROM Comptes WHERE Login = ?";
     $stmt = mysqli_prepare($cnx, $suppression);
-    mysqli_stmt_bind_param($stmt, "i", $login);
+    mysqli_stmt_bind_param($stmt, "s", $login);
     if (mysqli_stmt_execute($stmt)) {
         echo "<p style='color: green; text-align: center;'>Utilisateur supprimé avec succès.</p>";
     } else {
@@ -57,30 +59,32 @@ $sql = "SELECT * FROM Comptes";
 $result = mysqli_query($cnx, $sql);
 
 
-echo "<h3>Liste des utilisateurs</h3>";
+echo "<h3 style = 'text-align: center;'>Liste des utilisateurs</h3>";
 
 echo "<table>";
-// Affiche  l'en-têtes du tableau
-$colonnes = array_keys(mysqli_fetch_assoc($result));
-echo "<tr>";
-foreach ($colonnes as $colonne) {
-    echo "<th>$colonne</th>";
-}
-echo "<th>Supprimer</th>";
-echo "</tr>";
 
+$lignes = mysqli_fetch_assoc($result);
 
-// Affiche les lignes de données
-while($lignes = mysqli_fetch_assoc($result)){
+if ($lignes) {
+
     echo "<tr>";
-    foreach($lignes as $key => $value){
-        echo "<td>$value</td>";
+    foreach ($lignes as $key => $value) {
+        echo "<th>$key</th>";
     }
-    echo "<td>
-            <a href='?delete=" . $lignes['Login'] . "' class='delete-link'>Supprimer</a>
-        </td>";
+    echo "<th>Supprimer</th>";
     echo "</tr>";
-};
+
+    do {
+        echo "<tr>";
+        foreach ($lignes as $key => $value) {
+            echo "<td>$value</td>";
+        }
+        echo "<td><a href='?delete=" . $lignes['Login'] . "' class='delete-link'>Supprimer</a></td>";
+        echo "</tr>";
+    } while ($lignes = mysqli_fetch_assoc($result));
+} else {
+    echo "<tr><td colspan='100%' style='text-align: center;'>Aucun utilisateur trouvé.</td></tr>";
+}
 echo "</table>";
 
 
