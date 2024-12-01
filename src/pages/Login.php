@@ -1,4 +1,5 @@
 <?php
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Log In</title></head>
 <body>";
@@ -30,9 +31,11 @@ if(isset($_POST['Connexion'])){
         $_SESSION['login'] = $login; // Enregistrer le login
         $_SESSION['mdp'] = $mdp;     // Enregistrer le mot de passe
         header("Location: Profil.php"); // Redirection vers la page de profil
+        log_connexion($login, true);
         exit();
     } else {
         echo "<p>Login ou mot de passe incorrect</p>";
+        log_connexion($login, false);
     }
 }
 
