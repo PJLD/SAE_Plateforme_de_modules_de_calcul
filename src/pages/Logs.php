@@ -30,8 +30,9 @@ echo"<title>Logs</title>
 <body>";
 include("../templates/navbar.html");
 echo"<div style='height: 100px;'></div>";
-if (file_exists("../logs/suppressions.csv")) {
-    tableau("../logs/suppressions.csv");
+if (file_exists("../logs/logs.csv")) {
+    tableau("../logs/logs.csv");
 } else {
     echo "Le fichier n'existe pas.";
-}include("../templates/footer.html");
+}
+include("../templates/footer.html");
