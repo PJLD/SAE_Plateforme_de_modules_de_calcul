@@ -30,8 +30,13 @@ echo"<title>Logs</title>
 <body>";
 include("../templates/navbar.html");
 echo"<div style='height: 100px;'></div>";
+echo "<h1 style='text-align: center; color: #1c305f; margin-bottom: 80px;'>Tableau des logs</h1>";
 if (file_exists("../logs/logs.csv")) {
-    tableau("../logs/logs.csv");
+    if (filesize("../logs/logs.csv") > 0) {
+        tableau("../logs/logs.csv");
+    } else {
+        echo "<h2 style='text-align: center; color: #1c305f; margin-top: 100px; font-size: 22px;'>Le fichier des logs est vide.</h2>";
+    }
 } else {
     echo "Le fichier n'existe pas.";
 }
