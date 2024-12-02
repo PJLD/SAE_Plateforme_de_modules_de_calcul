@@ -5,25 +5,27 @@ echo"<title>AdminWeb</title>
 <style>
     /* Styles pour le tableau */
     table {
-        width: 80%;
-        margin: 20px auto;
+        width: 50%;
         border-collapse: collapse;
-        font-family: Arial, sans-serif;
+        margin: auto;
+        font-size: 18px;
     }
 
     th, td {
         border: 1px solid #ddd;
-        padding: 10px;
+        padding: 20px;
         text-align: center;
     }
 
 
-    tr:nth-child(even) {
-        background-color: #f9f9f9;
+    th {
+        background-color: #1c305f;
+        color: white;
+        font-weight: bold;
     }
 
     tr:hover {
-        background-color: #f1f1f1;
+        background-color: #ddd;
     }
 
     h1 {
@@ -62,7 +64,7 @@ $sql = "SELECT * FROM Comptes";
 $result = mysqli_query($cnx, $sql);
 
 
-echo "<h3 style = 'text-align: center;'>Liste des utilisateurs</h3>";
+echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Liste des utilisateurs</h1>";
 
 echo "<table>";
 
@@ -85,7 +87,7 @@ if ($lignes) {
         if ($lignes['Login'] != "sysadmin" and $lignes['Login'] != "adminweb") {
             echo "<td><a href='?delete=" . $lignes['Login'] . "' class='delete-link'>Supprimer</a></td>";
         }else{
-            echo "<td>non supprimable</td>";
+            echo "<td>Non supprimable</td>";
         }
         echo "</tr>";
     } while ($lignes = mysqli_fetch_assoc($result));
