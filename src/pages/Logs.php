@@ -29,7 +29,7 @@ echo"<title>Logs</title>
 </head>
 <body>";
 include("../templates/navbar.html");
-echo"<div style='height: 100px;'></div>";
+echo"<div style='height: 80px;'></div>";
 echo "<h1 style='text-align: center; color: #1c305f; margin-bottom: 80px;'>Tableau des logs</h1>";
 if (file_exists("../logs/logs.csv")) {
     if (filesize("../logs/logs.csv") > 0) {
