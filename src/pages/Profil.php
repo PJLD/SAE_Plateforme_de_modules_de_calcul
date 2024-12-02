@@ -21,6 +21,10 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
     </form>
     </div>";
 
+    echo"<form method='post'>
+    <button type='submit' name='SupprimerCompte' style='width: 75%; background-color: darkred; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Supprimer mon compte</button>
+    </form>";
+
     if (isset($_POST['ModifierMDP'])) {
         $AncienMDP = htmlspecialchars($_POST['AncienMDP']);
         $NouveauMDP = htmlspecialchars($_POST['NouveauMDP']);
@@ -63,5 +67,25 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
     echo "<p><a href='Login.php'>Se connecter</a></p>";
 }
 
+if (isset($_POST['SupprimerCompte'])) {
+    $cnx = mysqli_connect("localhost", "root", "");
+    $bd = mysqli_select_db($cnx, "SAE");
+
+    $suppression = "DELETE FROM Comptes WHERE Login = ?";
+    $stmt = mysqli_prepare($cnx, $suppression);
+    $login = $_SESSION['login'];
+    mysqli_stmt_bind_param($stmt, "s", $login);
+
+    if (mysqli_stmt_execute($stmt)) {
+        session_destroy();
+        header("Location: Accueil.php");
+        exit();
+    } else {
+        echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression du compte : " . mysqli_error($cnx) . "</p>";
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($cnx);
+}
 
 include("../templates/footer.html");
