@@ -6,13 +6,13 @@ function tableau($file){
     if (file_exists($file)) {
         $fp = fopen($file, "r");
         echo "<table class='tableau'>";
-        $res = fgetcsv($fp, 1024, ",");
+        $res = fgetcsv($fp, 1024, ";");
         echo "<tr>";
         foreach ($res as $valeur) {
             echo "<th>".$valeur."</th>";
         }
         echo "</tr>";
-        while ($res = fgetcsv($fp, 1024, ",")) {
+        while ($res = fgetcsv($fp, 1024, ";")) {
             echo "<tr>";
             foreach ($res as $valeur) {
                 echo "<td>".$valeur."</td>";
@@ -20,8 +20,6 @@ function tableau($file){
             echo "</tr>";
         }
         echo "</table>";
-    } else {
-        header("Location: CalculCSV.php?error");
     }
 }
 
@@ -107,4 +105,93 @@ function fonctionDeRepartitionInverseGaussienne($x, $mu, $lambda) {
     $term2 = exp((2 * $mu / $lambda) - ($x / $mu)) * normalCDF(-($x - $mu) / $sigma);
 
     return $term1 - $term2;
+}
+
+// Fonction pour écrire dans le fichier de log les utilisateurs supprimés
+
+function log_suppression($login, $etat) {
+    $file = "../logs/logs.csv";
+
+
+    if (file_exists($file)) {
+        $fp = fopen($file, "a");
+    } else {
+        $fp = fopen($file, "w");
+    }
+
+    if (filesize($file) == 0) {
+        fputcsv($fp, ["Date", "Utilisateur", "Statut"], ";");
+    }
+
+    $date = date("Y-m-d H:i:s");
+    $statut = $etat ? "suppression OK" : "suppression KO";
+    fputcsv($fp, [$date, $login, $statut], ";");
+
+    fclose($fp);
+}
+
+//fonction pour écrire dans le fichier de log les utilisateurs inscrits
+function log_inscription($login, $etat) {
+    $file = "../logs/logs.csv";
+
+
+    if (file_exists($file)) {
+        $fp = fopen($file, "a");
+    } else {
+        $fp = fopen($file, "w");
+    }
+
+    if (filesize($file) == 0) {
+        fputcsv($fp, ["Date", "Utilisateur", "Statut"], ";");
+    }
+
+    $date = date("Y-m-d H:i:s");
+    $statut = $etat ? "inscription OK" : "inscription KO";
+    fputcsv($fp, [$date, $login, $statut], ";");
+
+    fclose($fp);
+}
+
+//fonction pour écrire dans le fichier de log les utilisateurs connectés
+function log_connexion($login, $etat) {
+    $file = "../logs/logs.csv";
+
+
+    if (file_exists($file)) {
+        $fp = fopen($file, "a");
+    } else {
+        $fp = fopen($file, "w");
+    }
+
+    if (filesize($file) == 0) {
+        fputcsv($fp, ["Date", "Utilisateur", "Statut"], ";");
+    }
+
+    $date = date("Y-m-d H:i:s");
+    $statut = $etat ? "connexion OK" : "connexion KO";
+    fputcsv($fp, [$date, $login, $statut], ";");
+
+    fclose($fp);
+}
+
+//fonction pour écrire dans le fichier de log les utilisateurs déconnectés
+function log_deconnexion($login, $etat) {
+    $file = "../logs/logs.csv";
+
+
+    if (file_exists($file)) {
+        $fp = fopen($file, "a");
+    } else {
+        $fp = fopen($file, "w");
+    }
+
+    if (filesize($file) == 0) {
+        fputcsv($fp, ["Date", "Utilisateur", "Statut"], ";");
+    }
+
+    $date = date("Y-m-d H:i:s");
+    $statut = $etat ? "déconnexion OK" : "déconnexion KO";
+    fputcsv($fp, [$date, $login, $statut], ";");
+
+    fclose($fp);
 }

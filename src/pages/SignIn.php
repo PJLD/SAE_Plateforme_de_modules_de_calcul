@@ -1,4 +1,5 @@
 <?php
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Sign In</title></head>
 <body>";
@@ -45,8 +46,10 @@ if (isset($_POST["Inscription"])) {
 
     if (mysqli_stmt_execute($stmt)) {
         echo "<p style='font-size: 50px;'>Inscription réussie !</p>";
+        log_inscription($Login, true);
         } else {
             echo "<p style='font-size: 50px;'>Captcha incorrect</p>";
+            log_inscription($Login, false);
         }
 
     mysqli_stmt_close($stmt);

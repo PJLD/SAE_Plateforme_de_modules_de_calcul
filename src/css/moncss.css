@@ -5,21 +5,27 @@
 nav {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     background-color: #1c305f;
     color: white;
-    padding: 15px;
-    justify-content: center;
+    padding: 20px;
+    justify-content: space-evenly;
+    overflow-x: auto;
+    white-space: nowrap;
 }
+
 nav a {
-    text-decoration: none;       /* Supprime le soulignement */
-    color: white;                 /* Couleur du texte */
-    font-size: 18px;             /* Taille de la police */
-    padding: 40px;               /* Ajoute du padding pour rendre les liens plus grands */
-    transition: color 0.3s;      /* Animation lors du survol */
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 40px;
+    transition: color 0.3s;
 }
+
 nav a:hover {
-    color: #B8B8B8;              /* Change la couleur au survol */
+    color: #B8B8B8;
 }
+
 nav li {
     display: inline-block;
 }
@@ -63,6 +69,9 @@ h2 {
 .login:hover {
     background-color: #0056b3;        /* Change la couleur de fond au survol */
 }
+
+
+
 
 form {
     display: flex;
