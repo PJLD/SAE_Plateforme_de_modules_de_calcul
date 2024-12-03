@@ -5,23 +5,27 @@
 nav {
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap;              /* Empêche les éléments de revenir à la ligne */
+    flex-wrap: wrap;
     background-color: #1c305f;
     color: white;
-    padding: 15px;
-    justify-content: center;
-    overflow-x: auto;               /* Permet un défilement horizontal si nécessaire */
+    padding: 20px;
+    justify-content: space-evenly;
+    overflow-x: auto;
+    white-space: nowrap;
 }
+
 nav a {
-    text-decoration: none;       /* Supprime le soulignement */
-    color: white;                 /* Couleur du texte */
-    font-size: 18px;             /* Taille de la police */
-    padding: 40px;               /* Ajoute du padding pour rendre les liens plus grands */
-    transition: color 0.3s;      /* Animation lors du survol */
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: color 0.3s;
 }
+
 nav a:hover {
-    color: #B8B8B8;              /* Change la couleur au survol */
+    color: #B8B8B8;
 }
+
 nav li {
     display: inline-block;
 }
@@ -66,22 +70,8 @@ h2 {
     background-color: #0056b3;        /* Change la couleur de fond au survol */
 }
 
-/* Media query pour les petits écrans */
-@media (max-width: 768px) {
-    nav {
-        flex-direction: row;
-        justify-content: space-between;
-    }
 
-    nav a {
-        font-size: 14px;
-        padding: 15px;
-    }
 
-    .logo {
-        height: 40px;
-    }
-}
 
 form {
     display: flex;
