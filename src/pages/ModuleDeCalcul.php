@@ -46,12 +46,20 @@ if (isset($_POST['Calculer'])) {
         $resultat = ecartType($serie, $probabilites);
     }
 
-    // Afficher le résultat
-    echo "
-    <div class='resultatConteneur'>
-        <h3>Résultat du calcul : $calcul</h3>
-        <p><strong>$resultat</strong></p>
-    </div>";
+
+    if ($resultat == null){
+        $aff = "<h3>Erreur: rentrer une valeur</h3>";
+    }
+    else{
+        $aff =" <h3>Résultat du calcul : $calcul</h3>
+            <p><strong>$resultat</strong></p>";
+
+    }
+
+    echo "<div class='resultatConteneur'>";
+    echo $aff;
+    echo "</div>";
+
 }
 
 include("../templates/footer.html");
