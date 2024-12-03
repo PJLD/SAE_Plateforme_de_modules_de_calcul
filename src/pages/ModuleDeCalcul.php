@@ -48,7 +48,7 @@ if (isset($_POST['Calculer'])) {
 
 
     if ($resultat == null){
-        $aff = "<h3>Erreur: rentrer une valeur</h3>";
+        $aff = "<h3>Erreur: rentrer une valeur ou rentrer des valeurs valides</h3>";
     }
     else{
         $aff =" <h3>Résultat du calcul : $calcul</h3>
