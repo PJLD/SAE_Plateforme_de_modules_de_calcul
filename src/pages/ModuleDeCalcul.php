@@ -26,40 +26,41 @@ if (isset($_POST['Calculer'])) {
     $probabilites = explode(',', $_POST['Probabilites']);
     $calcul = $_POST['calcul'];
 
-    // Convertir les valeurs en nombres flottants
-    foreach ($serie as $key => $value) {
-        $serie[$key] = (float)$value;
-    }
-    foreach ($probabilites as $key => $value) {
-        $probabilites[$key] = (float)$value;
-    }
-
     // Calculer le résultat
     $resultat = null;
+    $message = null;
+
     if ($calcul == 'Moyenne') {
         $resultat = moyenne($serie);
     } elseif ($calcul == 'Esperance') {
-        $resultat = esperance($serie, $probabilites);
+        if (empty($_POST['Probabilites']) || count($probabilites) == 0) {
+            $message = "Veuillez remplir le champ des probabilités.";
+        } else {
+            $resultat = esperance($serie, $probabilites);
+        }
     } elseif ($calcul == 'Variance') {
-        $resultat = variance($serie, $probabilites);
+        if (empty($_POST['Probabilites']) || count($probabilites) == 0) {
+            $message = "Veuillez remplir le champ des probabilités.";
+        } else {
+            $resultat = variance($serie, $probabilites);
+        }
     } elseif ($calcul == 'Ecart-type') {
-        $resultat = ecartType($serie, $probabilites);
-    }
-
-
-    if ($resultat == null){
-        $aff = "<h3>Erreur: rentrer une valeur ou rentrer des valeurs valides</h3>";
-    }
-    else{
-        $aff =" <h3>Résultat du calcul : $calcul</h3>
-            <p><strong>$resultat</strong></p>";
-
+        if (empty($_POST['Probabilites']) || count($probabilites) == 0) {
+            $message = "Veuillez remplir le champ des probabilités.";
+        } else {
+            $resultat = ecartType($serie, $probabilites);
+        }
     }
 
     echo "<div class='resultatConteneur'>";
-    echo $aff;
+    if ($message) {
+        echo "<h3>Résultat du calcul : $calcul</h3>
+              <p><strong>$message</strong></p>";
+    } else {
+        echo "<h3>Résultat du calcul : $calcul</h3>
+              <p><strong>$resultat</strong></p>";
+    }
     echo "</div>";
-
 }
 
 include("../templates/footer.html");
