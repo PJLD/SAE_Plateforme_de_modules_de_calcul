@@ -11,11 +11,11 @@ echo"<h2>Loi Inverse-Gaussienne</h2>
 <input type='text' name='mu' id='mu' placeholder='μ'>
 <label for='lambda'>La forme λ</label>
 <input type='text' name='lambda' id='lambda' placeholder='λ'>
-<label for='a'>Valeur de la borne inférieure a (avec a > 0) </label>
+<label for='a'>Valeur de la borne inférieure a (avec a > 0)</label>
 <input type='number' name='a' id='a' placeholder='a'>
-<label for='b'>Valeur de la borne supérieure b (avec b > 0 et b > a) </label>
-<input type='number' name='b' id='b' placeholder='b'>
-<label for='n'>Le nombre de sous intervalles, pour la méthode des trapezes</label>
+<label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne</label>
+<input type='number' name='t' id='t' placeholder='t'>
+<label for='n'>Le nombre de sous intervalles</label>
 <input type='number' name='n' id='n' placeholder='n'>
 <label for='methode'>Sélectionnez votre méthode de calcul</label>
 <select name='methode' id='methode'>
@@ -27,22 +27,36 @@ echo"<h2>Loi Inverse-Gaussienne</h2>
 </form>";
 
 if (isset($_POST['Calculer'])) {
+    $a=0;
     $mu = $_POST['mu'];
     $lambda = $_POST['lambda'];
-    $a = $_POST['a'];
-    $b = $_POST['b'];
+    $b = $_POST['t'];
     $n = $_POST['n'];
+    $a=$_POST['a'];
 
     $calcul = $_POST['methode'];
     $message= null;
 
-    if ($calcul =='Methode des trapezes' ) {
+    if ($calcul =='Methode des trapezes') {
         $result = methodeDesTrapezes($a, $b, $lambda, $mu,$n);
-    }elseif ($calcul =='Methode des rectangles' ) {
+    }elseif ($calcul =='Methode des rectangles') {
         $result = methodeDesRectangles($a, $b, $lambda, $mu,$n);
-    }elseif ($calcul =='Methode de Simpson' ) {
+    }elseif ($calcul =='Methode de Simpson') {
         $result = methodeDeSimpson($a, $b, $lambda, $mu,$n);
     }
+    $sigma = sqrt($mu / $lambda);
+
+    $resultats = [
+        'probabilite' => $result,
+        'lambda' => $lambda,
+        'mu' => $mu,
+        'sigma' => $sigma,
+        'methode' => $calcul
+    ];
+
+    // Affichage du résultat sous forme de tableau
+    echo json_encode($resultats);
+
 
 
 
