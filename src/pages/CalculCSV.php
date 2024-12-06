@@ -1,8 +1,10 @@
 <?php
+session_start();
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Calcul CSV</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<h2>Calculer à partir d'un fichier CSV</h2>
 <form method='post'>
 <label for='csvFile'>Importez votre fichier CSV :</label>
