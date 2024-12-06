@@ -1,8 +1,10 @@
 <?php
+session_start();
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Contacts</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<div style='height: 50px;'></div>
 <div class='contacts-list'>
 <h2 style='font-size: 20px;'>Vous pouvez nous contacter via nos adresses mail respectives : </h2>
