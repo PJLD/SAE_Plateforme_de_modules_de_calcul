@@ -64,17 +64,54 @@ function loiInverseGaussienne($x, $lambda, $mu)
 }
 
 
-function trapezoidal_integration($loiInverseGaussienne, $a, $b, $lambda, $mu, $n)
+function methodeDesTrapezes($a, $b, $lambda, $mu, $n)
 {
     $h = ($b - $a) / $n;
-    $sum = 0.5 * ($loiInverseGaussienne($a, $lambda, $mu) + $loiInverseGaussienne($b, $lambda, $mu));
+    $sum = 0.5 * (loiInverseGaussienne($a, $lambda, $mu) + loiInverseGaussienne($b, $lambda, $mu));
 
-    for ($i = 1; $i < $n; $i++) {
-        $sum += $loiInverseGaussienne($a + $i * $h, $lambda, $mu);
+    for ($k = 1; $k < $n; $k++) {
+        $ak = $a + $k * $h;
+        $sum += loiInverseGaussienne($ak,$mu,$lambda);
     }
-
     return $sum * $h;
 }
+function methodeDesRectangles($a, $b, $mu, $lambda, $n) {
+    $h = ($b - $a) / $n;
+
+    $somme = 0;
+
+    for ($k = 0; $k < $n; $k++) {
+        $ak = $a + $k * $h;
+        $ak_plus_1 = $ak + $h;
+        $moyenne = ($ak + $ak_plus_1) / 2;
+        $somme += loiInverseGaussienne($moyenne, $mu, $lambda);
+    }
+
+    return $somme * $h;
+}
+function methodeDeSimpson($a, $b, $mu, $lambda, $n) {
+    if ($n % 2 != 0) {
+        echo "Le nombre de subdivisions n doit être pair.\n";
+        return null;
+    }
+
+    $h = ($b - $a) / $n;
+
+    $somme = loiInverseGaussienne($a, $mu, $lambda) + loiInverseGaussienne($b, $mu, $lambda);
+
+    for ($k = 1; $k < $n; $k += 2) {
+        $ak = $a + $k * $h;
+        $somme += 4 * loiInverseGaussienne($ak, $mu, $lambda);
+    }
+
+    for ($k = 2; $k < $n - 1; $k += 2) {
+        $ak = $a + $k * $h;
+        $somme += 2 * loiInverseGaussienne($ak, $mu, $lambda);
+    }
+
+    return ($b - $a) * $somme / (6 * $n);
+}
+
 
 
 
