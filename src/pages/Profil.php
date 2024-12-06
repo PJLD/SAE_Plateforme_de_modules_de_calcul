@@ -1,10 +1,10 @@
 <?php
+session_start();
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Profil</title></head>
 <body>";
-include("../templates/navbar.html");
-
-session_start();
+gererNavBar();
 
 if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
 
