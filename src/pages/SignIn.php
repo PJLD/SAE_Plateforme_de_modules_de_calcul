@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Sign In</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 
 $elem1 = rand(1, 10);
 $elem2 = rand(1, 10);
