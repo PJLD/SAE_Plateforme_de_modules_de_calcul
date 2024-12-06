@@ -89,7 +89,28 @@ function methodeDesRectangles($a, $b, $mu, $lambda, $n) {
 
     return $somme * $h;
 }
+function methodeDeSimpson($a, $b, $mu, $lambda, $n) {
+    if ($n % 2 != 0) {
+        echo "Le nombre de subdivisions n doit être pair.\n";
+        return null;
+    }
 
+    $h = ($b - $a) / $n;
+
+    $somme = loiInverseGaussienne($a, $mu, $lambda) + loiInverseGaussienne($b, $mu, $lambda);
+
+    for ($k = 1; $k < $n; $k += 2) {
+        $ak = $a + $k * $h;
+        $somme += 4 * loiInverseGaussienne($ak, $mu, $lambda);
+    }
+
+    for ($k = 2; $k < $n - 1; $k += 2) {
+        $ak = $a + $k * $h;
+        $somme += 2 * loiInverseGaussienne($ak, $mu, $lambda);
+    }
+
+    return ($b - $a) * $somme / (6 * $n);
+}
 
 
 
