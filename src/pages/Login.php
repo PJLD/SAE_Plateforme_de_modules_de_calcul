@@ -5,7 +5,7 @@ include("../templates/header.html");
 echo"<title>Log In</title></head>
 <body>";
 gererNavBar();
-echo"<h2>Veuillez vous connecter</h2>
+echo"<h2>Se connecter</h2>
 <form method='post'>
 <label for='Login'>Login</label>
 <input type='text' name='Login' id='Login' placeholder='Login' required>
