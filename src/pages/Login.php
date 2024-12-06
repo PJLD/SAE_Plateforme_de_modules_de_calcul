@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Log In</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<h2>Veuillez vous connecter</h2>
 <form method='post'>
 <label for='Login'>Login</label>
