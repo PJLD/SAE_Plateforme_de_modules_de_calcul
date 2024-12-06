@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo "<title>Historique</title>
 <style>
@@ -33,7 +35,7 @@ echo "<title>Historique</title>
 </style>
 </head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 
 $cnx = mysqli_connect("localhost", "root", "");
 $bd = mysqli_select_db($cnx, "SAE");
