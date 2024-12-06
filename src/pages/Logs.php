@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Logs</title>
@@ -28,7 +29,7 @@ echo"<title>Logs</title>
 </style>
 </head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<div style='height: 80px;'></div>";
 echo "<h1 style='text-align: center; color: #1c305f; margin-bottom: 80px;'>Tableau des logs</h1>";
 if (file_exists("../logs/logs.csv")) {
