@@ -64,10 +64,10 @@ function loiInverseGaussienne($x, $lambda, $mu)
 }
 
 
-function methodeDesTrapezes($loiInverseGaussienne, $a, $b, $lambda, $mu, $n)
+function methodeDesTrapezes($a, $b, $lambda, $mu, $n)
 {
     $h = ($b - $a) / $n;
-    $sum = 0.5 * ($loiInverseGaussienne($a, $lambda, $mu) + $loiInverseGaussienne($b, $lambda, $mu));
+    $sum = 0.5 * (loiInverseGaussienne($a, $lambda, $mu) + loiInverseGaussienne($b, $lambda, $mu));
 
     for ($k = 1; $k < $n; $k++) {
         $ak = $a + $k * $h;
