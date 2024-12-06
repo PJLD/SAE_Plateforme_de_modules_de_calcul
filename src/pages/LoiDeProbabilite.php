@@ -19,7 +19,9 @@ echo"<h2>Loi Inverse-Gaussienne</h2>
 <input type='number' name='n' id='n' placeholder='n'>
 <label for='methode'>Sélectionnez votre méthode de calcul</label>
 <select name='methode' id='methode'>
-<option value='Méthode des trapezes'>Méthode des trapezes</option>
+<option value='Methode des trapezes'>Méthode des trapezes</option>
+<option value='Methode des rectangles'>Méthode des rectangles(médian)</option>
+<option value='Methode de Simpson'>Méthode de Simpson</option>
 </select>
 <button type='submit' name='Calculer' >Calculer</button>
 </form>";
@@ -34,7 +36,14 @@ if (isset($_POST['Calculer'])) {
     $calcul = $_POST['methode'];
     $message= null;
 
-    $result = trapezoidal_integration('loiInverseGaussienne', $a, $b, $lambda, $mu,$n);
+    if ($calcul =='Methode des trapezes' ) {
+        $result = methodeDesTrapezes($a, $b, $lambda, $mu,$n);
+    }elseif ($calcul =='Methode des rectangles' ) {
+        $result = methodeDesRectangles($a, $b, $lambda, $mu,$n);
+    }elseif ($calcul =='Methode de Simpson' ) {
+        $result = methodeDeSimpson($a, $b, $lambda, $mu,$n);
+    }
+
 
 
 
