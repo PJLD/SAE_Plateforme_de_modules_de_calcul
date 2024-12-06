@@ -1,8 +1,10 @@
 <?php
+session_start();
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Mot de Passe Oublie</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<div style='height: 80px;'></div>
 <div style='text-align: center; margin: 20px 0;'>
     <img src='../images/Construction.png' alt='Image Construction Site Web'>
