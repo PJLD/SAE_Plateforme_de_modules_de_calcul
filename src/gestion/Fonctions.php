@@ -75,6 +75,20 @@ function methodeDesTrapezes($loiInverseGaussienne, $a, $b, $lambda, $mu, $n)
     }
     return $sum * $h;
 }
+function methodeDesRectangles($a, $b, $mu, $lambda, $n) {
+    $h = ($b - $a) / $n;
+
+    $somme = 0;
+
+    for ($k = 0; $k < $n; $k++) {
+        $ak = $a + $k * $h;
+        $ak_plus_1 = $ak + $h;
+        $moyenne = ($ak + $ak_plus_1) / 2;
+        $somme += loiInverseGaussienne($moyenne, $mu, $lambda);
+    }
+
+    return $somme * $h;
+}
 
 
 
