@@ -1,9 +1,10 @@
 <?php
+session_start();
 require_once ("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Module de Calcul</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<h2>Veuillez saisir vos données</h2>
 <form method='post'>
 <label for='SerieA'>Série (xx,xx,xx,...)</label>
