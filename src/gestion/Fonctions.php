@@ -1,6 +1,20 @@
 <?php
 //Fonctions nécessaires
 
+//fonction pour gérer la barre de navigation selon le compte
+function gererNavBar(){
+    if (isset($_SESSION['login']) && $_SESSION['mdp'] === 'adminweb') {
+        include("../templates/navbarAdminWeb.html");
+    } else if (isset($_SESSION['login']) && $_SESSION['mdp'] === 'sysadmin') {
+        include("../templates/navbarSysAdmin.html");
+    } else if (empty($_SESSION['login']) && empty($_SESSION['mdp'])) {
+        include("../templates/navbarVisiteur.html");
+    }
+    else {
+        include("../templates/navbar.html");
+    }
+}
+
 //fonction csv en tableau
 function tableau($file){
     if (file_exists($file)) {
