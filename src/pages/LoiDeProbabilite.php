@@ -1,10 +1,10 @@
 <?php
+session_start();
 include("../templates/header.html");
 require_once("../gestion/Fonctions.php");
 echo"<title>Loi de Probabilité</title></head>
 <body>";
-include("../templates/navbar.html");
-
+gererNavBar();
 echo"<h2>Loi Inverse-Gaussienne</h2>
 <form method='post' style='max-width: 25%;'>
 <label for='mu'>L'espérance μ</label>
