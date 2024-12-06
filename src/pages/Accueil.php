@@ -1,8 +1,10 @@
 <?php
+session_start();
+require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Accueil</title></head>
 <body>";
-include("../templates/navbar.html");
+gererNavBar();
 echo"<div class='ImageAccueil'>
 <img src='../images/Image1.jpg' alt='Image Accueil 1'>
 <img src='../images/Image2.webp' alt='Image Accueil 2'>
