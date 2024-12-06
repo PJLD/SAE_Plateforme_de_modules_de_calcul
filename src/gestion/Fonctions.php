@@ -64,17 +64,19 @@ function loiInverseGaussienne($x, $lambda, $mu)
 }
 
 
-function trapezoidal_integration($loiInverseGaussienne, $a, $b, $lambda, $mu, $n)
+function methodeDesTrapezes($loiInverseGaussienne, $a, $b, $lambda, $mu, $n)
 {
     $h = ($b - $a) / $n;
     $sum = 0.5 * ($loiInverseGaussienne($a, $lambda, $mu) + $loiInverseGaussienne($b, $lambda, $mu));
 
-    for ($i = 1; $i < $n; $i++) {
-        $sum += $loiInverseGaussienne($a + $i * $h, $lambda, $mu);
+    for ($k = 1; $k < $n; $k++) {
+        $ak = $a + $k * $h;
+        $sum += loiInverseGaussienne($ak,$mu,$lambda);
     }
-
     return $sum * $h;
 }
+
+
 
 
 
