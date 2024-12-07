@@ -50,8 +50,13 @@ if (isset($_GET['delete'])) {
     $stmt = mysqli_prepare($cnx, $suppression);
     mysqli_stmt_bind_param($stmt, "s", $login);
     if (mysqli_stmt_execute($stmt)) {
-        echo "<p style='color: green; text-align: center;'>Utilisateur supprimé avec succès.</p>";
-        log_suppression($login, true);
+        $suppressionHistorique = "DELETE FROM Historique WHERE Login = ?";
+        $stmtHistorique = mysqli_prepare($cnx, $suppressionHistorique);
+        mysqli_stmt_bind_param($stmtHistorique, "s", $login);
+        if (mysqli_stmt_execute($stmtHistorique)){
+            echo "<p style='color: green; text-align: center;'>Utilisateur supprimé avec succès.</p>";
+            log_suppression($login, true);
+        }
     } else {
         echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression.</p>";
         log_suppression($login, false);
@@ -99,9 +104,5 @@ echo "</table>";
 
 
 mysqli_close($cnx);
-
-
-
-
 
 include("../templates/footer.html");
