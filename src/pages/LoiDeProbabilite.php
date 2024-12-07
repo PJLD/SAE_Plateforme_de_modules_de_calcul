@@ -2,7 +2,41 @@
 session_start();
 include("../templates/header.html");
 require_once("../gestion/Fonctions.php");
-echo"<title>Loi de Probabilité</title></head>
+echo"<title>Loi de Probabilité</title>
+<style>
+    /* Styles pour le tableau */
+    table {
+        width: 50%;
+        border-collapse: collapse;
+        margin: 50px auto;
+        font-size: 18px;
+    }
+
+    td {
+        border: 1px solid #ddd;
+        padding: 15px;
+        text-align: center;
+    }
+
+    td:first-child {
+        background-color: #1c305f;
+        color: white;
+    }
+    
+    td:nth-child(2) {
+        font-weight: bold;
+    }
+
+    tr:hover {
+        background-color: #ddd;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+</head>
 <body>";
 gererNavBar();
 echo"<h2>Loi Inverse-Gaussienne</h2>
@@ -37,6 +71,11 @@ if (isset($_POST['Calculer'])) {
     $calcul = $_POST['methode'];
     $message= null;
 
+    $login = $_SESSION['login'];
+    $date = date('Y-m-d H:i:s');
+    $cnx = mysqli_connect("localhost", "root", "");
+    $bd = mysqli_select_db($cnx, "SAE");
+
     if ($calcul =='Methode des trapezes') {
         $result = methodeDesTrapezes($a, $b, $mu, $lambda,$n);
         $moyenne = calculerXBarreTrapeze($a,$b,$mu,$lambda,$n);
@@ -50,11 +89,11 @@ if (isset($_POST['Calculer'])) {
     $sigma = sqrt(pow($mu,3) / $lambda);
 
     $resultats = [
-        'Resultat' => $result,
+        'Résultat' => $result,
         'Lambda' => $lambda,
         'Moyenne'=> $moyenne,
         'Ecart-type' => $sigma,
-        'Methode' => $calcul
+        'Méthode' => $calcul
     ];
 
     echo "<table class='tableau-resultats'>";
@@ -78,6 +117,15 @@ if (isset($_POST['Calculer'])) {
     } else {
         echo "<h3>Résultat du calcul : $calcul</h3>
               <p><strong>$result</strong></p>";
+
+        $sql = "INSERT INTO Historique (login, date, calcul, resultat) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($cnx, $sql);
+        mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $result);
+        if (mysqli_stmt_execute($stmt)) {
+            echo "<p style='color: green; text-align: center;'>Le résultat a été enregistré dans votre historique</p>";
+        } else {
+            echo "<p style='color: red; text-align: center;'>Erreur lors de l'enregistrement du résultat dans votre historique</p>";
+        }
     }
     echo "</div>";
 
