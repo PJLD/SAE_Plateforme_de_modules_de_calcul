@@ -35,7 +35,7 @@ if(isset($_POST['Connexion'])){
         log_connexion($login, true);
         exit();
     } else {
-        echo "<p>Login ou mot de passe incorrect</p>";
+        echo "<p style='color: red; text-align: center;'>Login ou mot de passe incorrect</p>";
         log_connexion($login, false);
     }
 }
