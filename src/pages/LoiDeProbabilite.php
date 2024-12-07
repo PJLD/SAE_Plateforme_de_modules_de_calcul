@@ -38,25 +38,35 @@ if (isset($_POST['Calculer'])) {
     $message= null;
 
     if ($calcul =='Methode des trapezes') {
-        $result = methodeDesTrapezes($a, $b, $lambda, $mu,$n);
+        $result = methodeDesTrapezes($a, $b, $mu, $lambda,$n);
+        $moyenne = calculerXBarreTrapeze($a,$b,$mu,$lambda,$n);
     }elseif ($calcul =='Methode des rectangles') {
-        $result = methodeDesRectangles($a, $b, $lambda, $mu,$n);
+        $result = methodeDesRectangles($a, $b, $mu, $lambda,$n);
+        $moyenne = calculerXBarreRectangles($a,$b,$mu,$lambda,$n);
     }elseif ($calcul =='Methode de Simpson') {
-        $result = methodeDeSimpson($a, $b, $lambda, $mu,$n);
+        $result = methodeDeSimpson($a, $b,$mu,$lambda,$n);
+        $moyenne=calculerXBarreSimpson($a,$b,$mu,$lambda,$n);
     }
-    $sigma = sqrt($mu / $lambda);
+    $sigma = sqrt(pow($mu,3) / $lambda);
 
     $resultats = [
-        'probabilite' => $result,
-        'lambda' => $lambda,
-        'mu' => $mu,
-        'sigma' => $sigma,
-        'methode' => $calcul
+        'Resultat' => $result,
+        'Lambda' => $lambda,
+        'Moyenne'=> $moyenne,
+        'Ecart-type' => $sigma,
+        'Methode' => $calcul
     ];
 
-    // Affichage du résultat sous forme de tableau
-    echo json_encode($resultats);
-
+    echo "<table class='tableau-resultats'>";
+    echo "<tbody>";
+    foreach ($resultats as $parametre => $valeur) {
+        echo "<tr>";
+        echo "<td>" . $parametre . "</td>";
+        echo '<td>' . $valeur . "</td>";
+        echo "</tr>";
+    }
+    echo "</tbody>";
+    echo "</table>";
 
 
 
