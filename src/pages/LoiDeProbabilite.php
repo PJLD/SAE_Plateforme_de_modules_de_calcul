@@ -129,6 +129,60 @@ if (isset($_POST['Calculer'])) {
     }
     echo "</div>";
 
+    // Calcul des points pour le graphique
+    $points_x = [];
+    $points_y = [];
+    $inter = ($b - $a) / $n;
+    for ($i = 0; $i <= $n; $i++) {
+        $x = $a + $i * $inter; //x
+        $y = loiInverseGaussienne($x, $lambda, $mu); //f(x)
+        $points_x[] = $x;
+        $points_y[] = $y;
+    }
+
+    // Affichage du graphique
+    echo "<div style='display: flex; justify-content: center; margin-top: 30px;'>
+            <canvas id='graphCanvas' style='width: 600px; height: 400px;'></canvas>
+          </div>";
+
+    echo "
+    <script src='https://cdn.jsdelivr.net/npm/chart.js'></script> <!--importation de chart.js-->
+    <script>
+    var ctx = document.getElementById('graphCanvas'); 
+    new Chart(ctx, {
+        type: 'line',   //graphique courbe ligne
+        data: {
+            labels: " . json_encode($points_x) . ",  //abscisse
+            datasets: [{
+                label: 'Loi Inverse-Gaussienne',
+                data: " . json_encode($points_y) . ",  //ordonnée
+                fill: true,
+                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                borderColor: 'rgba(0, 0, 255, 1)',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Valeurs de la variable aléatoire (x)'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Densité de probabilité f(x)'
+                    }
+                }
+            }
+        }
+    });
+    </script>
+    ";
 }
 
 include("../templates/footer.html");
