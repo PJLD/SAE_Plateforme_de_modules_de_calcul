@@ -31,7 +31,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
         $AncienMDP2 = md5($AncienMDP); // Hachage de l'ancien mot de passe
         $NouveauMDP2 = md5($NouveauMDP); // Hachage du nouveau mot de passe
 
-        $cnx = mysqli_connect("localhost", "root", "");
+        $cnx = mysqli_connect("localhost", "sae", "sae");
         $bd = mysqli_select_db($cnx, "SAE");
 
         // Vérification de l'ancien mot de passe
@@ -68,7 +68,7 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
 }
 
 if (isset($_POST['SupprimerCompte'])) {
-    $cnx = mysqli_connect("localhost", "root", "");
+    $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
 
     $suppression = "DELETE FROM Comptes WHERE Login = ?";
