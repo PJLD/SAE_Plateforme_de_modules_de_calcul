@@ -37,7 +37,7 @@ echo "<title>Historique</title>
 <body>";
 gererNavBar();
 
-$cnx = mysqli_connect("localhost", "root", "");
+$cnx = mysqli_connect("localhost", "sae", "sae");
 $bd = mysqli_select_db($cnx, "SAE");
 
 $sql = "SELECT * FROM Historique";
