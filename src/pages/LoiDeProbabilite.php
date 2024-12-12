@@ -73,7 +73,7 @@ if (isset($_POST['Calculer'])) {
 
     $login = $_SESSION['login'];
     $date = date('Y-m-d H:i:s');
-    $cnx = mysqli_connect("localhost", "root", "");
+    $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
 
     if ($calcul =='Methode des trapezes') {
