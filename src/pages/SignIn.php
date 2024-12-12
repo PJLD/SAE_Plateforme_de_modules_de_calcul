@@ -38,7 +38,7 @@ if (isset($_POST["Inscription"])) {
         $cnx = mysqli_connect("localhost", "sae", "sae");
         $bd = mysqli_select_db($cnx, "SAE");
 
-        $sql = "INSERT INTO  Comptes (Login, Mdp) VALUES (?, ?)";
+        $sql = "INSERT INTO  Comptes (Login, MDP) VALUES (?, ?)";
 
         $stmt = mysqli_prepare($cnx, $sql);
         mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
