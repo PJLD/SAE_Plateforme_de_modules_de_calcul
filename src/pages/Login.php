@@ -20,7 +20,7 @@ if(isset($_POST['Connexion'])){
     $login = htmlspecialchars($_POST['Login']);
     $mdp = htmlspecialchars($_POST['Mdp']);
     $mdp2 = md5($mdp);
-    $cnx = mysqli_connect("localhost","root","");
+    $cnx = mysqli_connect("localhost","sae","sae");
     $sql = "SELECT * FROM Comptes WHERE Login=? and MDP=?";
     $bd = mysqli_select_db($cnx, "SAE");
     $stmt = mysqli_prepare($cnx, $sql);
