@@ -35,7 +35,7 @@ if (isset($_POST["Inscription"])) {
     if (!isset($_COOKIE['captcha']) || $captcha != $_COOKIE['captcha']) {
         echo "<p style='color: red; text-align: center;'>Captcha Incorrect. Veuillez réessayer.</p>";
     } else {
-        $cnx = mysqli_connect("localhost", "root", "");
+        $cnx = mysqli_connect("localhost", "sae", "sae");
         $bd = mysqli_select_db($cnx, "SAE");
 
         $sql = "INSERT INTO  Comptes (Login, Mdp) VALUES (?, ?)";
