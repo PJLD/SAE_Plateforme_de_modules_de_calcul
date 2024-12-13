@@ -42,15 +42,15 @@ gererNavBar();
 echo"<h2>Loi Inverse-Gaussienne</h2>
 <form method='post' style='max-width: 25%;'>
 <label for='mu'>L'espérance μ</label>
-<input type='text' name='mu' id='mu' placeholder='μ' required>
+<input type='number' name='mu' id='mu' placeholder='μ' required>
 <label for='lambda'>La forme λ</label>
-<input type='text' name='lambda' id='lambda' placeholder='λ' required>
+<input type='number' name='lambda' id='lambda' placeholder='λ' required>
 <label for='a'>Valeur de la borne inférieure a (avec a > 0)</label>
-<input type='text' name='a' id='a' placeholder='a' min='1' required>
+<input type='number' name='a' id='a' placeholder='a' min='1' required>
 <label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne et t > a</label>
-<input type='text' name='t' id='t' placeholder='t' min='1' required>
+<input type='number' name='t' id='t' placeholder='t' min='1' required>
 <label for='n'>Le nombre de sous intervalles (avec n > 0)</label>
-<input type='text' name='n' id='n' placeholder='n' min='1' required>
+<input type='number' name='n' id='n' placeholder='n' min='1' required>
 <label for='methode'>Sélectionnez votre méthode de calcul</label>
 <select name='methode' id='methode'>
 <option value='Methode des trapezes'>Méthode des trapezes</option>
