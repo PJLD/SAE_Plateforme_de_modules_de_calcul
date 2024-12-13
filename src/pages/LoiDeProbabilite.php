@@ -49,7 +49,7 @@ echo"<h2>Loi Inverse-Gaussienne</h2>
 <input type='number' name='a' id='a' placeholder='a' required>
 <label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne et t > a</label>
 <input type='number' name='t' id='t' placeholder='t' required>
-<label for='n'>Le nombre de sous intervalles</label>
+<label for='n'>Le nombre de sous intervalles (avec n > 0)</label>
 <input type='number' name='n' id='n' placeholder='n' required>
 <label for='methode'>Sélectionnez votre méthode de calcul</label>
 <select name='methode' id='methode'>
@@ -64,9 +64,17 @@ if (isset($_POST['Calculer'])) {
     $a=0;
     $mu = $_POST['mu'];
     $lambda = $_POST['lambda'];
-    $b = $_POST['t'];
+    $b = $_POST['t']; //correspond au champ de t
     $n = $_POST['n'];
     $a=$_POST['a'];
+
+    if($a <= 0){
+        $message = "Veuillez saisir une valeur de a supérieure à 0";
+    } elseif ($b <= $a){
+        $message = "Veuillez saisir une valeur de t supérieure à a";
+    } elseif ($n <= 0){
+        $message = "Veuillez saisir une valeur de n supérieure à 0";
+    }
 
     $calcul = $_POST['methode'];
     $message= null;
