@@ -39,8 +39,9 @@ gererNavBar();
 
 $cnx = mysqli_connect("localhost", "sae", "sae");
 $bd = mysqli_select_db($cnx, "SAE");
+$login = $_SESSION['login'];
 
-$sql = "SELECT * FROM Historique";
+$sql = "SELECT * FROM Historique WHERE Login = '$login'";
 $resultat = mysqli_query($cnx, $sql);
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Historique des Calculs</h1>";
