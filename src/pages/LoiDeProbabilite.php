@@ -46,11 +46,11 @@ echo"<h2>Loi Inverse-Gaussienne</h2>
 <label for='lambda'>La forme λ</label>
 <input type='text' name='lambda' id='lambda' placeholder='λ' required>
 <label for='a'>Valeur de la borne inférieure a (avec a > 0)</label>
-<input type='number' name='a' id='a' placeholder='a' required>
+<input type='text' name='a' id='a' placeholder='a' min='1' required>
 <label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne et t > a</label>
-<input type='number' name='t' id='t' placeholder='t' required>
+<input type='text' name='t' id='t' placeholder='t' min='1' required>
 <label for='n'>Le nombre de sous intervalles (avec n > 0)</label>
-<input type='number' name='n' id='n' placeholder='n' required>
+<input type='text' name='n' id='n' placeholder='n' min='1' required>
 <label for='methode'>Sélectionnez votre méthode de calcul</label>
 <select name='methode' id='methode'>
 <option value='Methode des trapezes'>Méthode des trapezes</option>
@@ -68,16 +68,7 @@ if (isset($_POST['Calculer'])) {
     $n = $_POST['n'];
     $a=$_POST['a'];
 
-    if($a <= 0){
-        $message = "Veuillez saisir une valeur de a supérieure à 0";
-    } elseif ($b <= $a){
-        $message = "Veuillez saisir une valeur de t supérieure à a";
-    } elseif ($n <= 0){
-        $message = "Veuillez saisir une valeur de n supérieure à 0";
-    }
-
     $calcul = $_POST['methode'];
-    $message= null;
 
     $login = $_SESSION['login'];
     $date = date('Y-m-d H:i:s');
@@ -115,25 +106,16 @@ if (isset($_POST['Calculer'])) {
     echo "</tbody>";
     echo "</table>";
 
-
-
-
     echo "<div class='resultatConteneur'>";
-    if ($message) {
-        echo "<h3>Résultat du calcul : $calcul</h3>
-              <p><strong>$message</strong></p>";
+    echo "<h3>Résultat du calcul : $calcul</h3>
+    <p><strong>$result</strong></p>";
+    $sql = "INSERT INTO Historique (login, date, calcul, resultat) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($cnx, $sql);
+    mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $result);
+    if (mysqli_stmt_execute($stmt)) {
+        echo "<p style='color: green; text-align: center;'>Le résultat a été enregistré dans votre historique</p>";
     } else {
-        echo "<h3>Résultat du calcul : $calcul</h3>
-              <p><strong>$result</strong></p>";
-
-        $sql = "INSERT INTO Historique (login, date, calcul, resultat) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($cnx, $sql);
-        mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $result);
-        if (mysqli_stmt_execute($stmt)) {
-            echo "<p style='color: green; text-align: center;'>Le résultat a été enregistré dans votre historique</p>";
-        } else {
-            echo "<p style='color: red; text-align: center;'>Erreur lors de l'enregistrement du résultat dans votre historique</p>";
-        }
+        echo "<p style='color: red; text-align: center;'>Erreur lors de l'enregistrement du résultat dans votre historique</p>";
     }
     echo "</div>";
 
