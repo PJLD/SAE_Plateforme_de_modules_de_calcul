@@ -10,7 +10,6 @@ if (isset($_SESSION['login'])) {
 
 
 session_unset();
-log_deconnexion($login, true);
 session_destroy(); // Détruire la session
 
 session_start(); //relancer la session
