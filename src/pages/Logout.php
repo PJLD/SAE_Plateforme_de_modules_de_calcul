@@ -7,8 +7,7 @@ if (isset($_SESSION['login'])) {
 } else {
     $login = "Utilisateur inconnu";
 }
-
-
+log_deconnexion($login, true);
 session_unset();
 session_destroy(); // Détruire la session
 
