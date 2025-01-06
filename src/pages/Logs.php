@@ -4,41 +4,70 @@ require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
 echo"<title>Logs</title>
 <style>
-    .tableau {
-        width: 50%;
+    table {
+        width: 70%;
         border-collapse: collapse;
         margin: auto;
         font-size: 18px;
     }
 
-    .tableau th, .tableau td {
+    th, td {
         border: 1px solid #ddd;
-        padding: 20px;
+        padding: 15px;
         text-align: center;
     }
 
-    .tableau th {
+    th {
         background-color: #1c305f;
         color: white;
         font-weight: bold;
     }
 
-    .tableau tr:hover {
+    tr:hover {
         background-color: #ddd;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 20px;
     }
 </style>
 </head>
 <body>";
 gererNavBar();
-echo"<div style='height: 80px;'></div>";
-echo "<h1 style='text-align: center; color: #1c305f; margin-bottom: 80px;'>Tableau des logs</h1>";
-if (file_exists("../logs/logs.csv")) {
-    if (filesize("../logs/logs.csv") > 0) {
-        tableau("../logs/logs.csv");
-    } else {
-        echo "<h2 style='text-align: center; color: #1c305f; margin-top: 100px; font-size: 22px;'>Le fichier des logs est vide.</h2>";
+
+$cnx = mysqli_connect("localhost", "sae", "sae");
+$bd = mysqli_select_db($cnx, "SAE");
+$login = $_SESSION['login'];
+
+$sql = "SELECT * FROM Logs";
+$resultat = mysqli_query($cnx, $sql);
+
+echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Base des Logs</h1>";
+
+echo "<table>";
+
+$lignes = mysqli_fetch_assoc($resultat);
+
+if ($lignes) {
+    echo "<tr>";
+    foreach ($lignes as $key => $value) {
+        echo "<th>$key</th>";
     }
+    echo "</tr>";
+
+    do {
+        echo "<tr>";
+        foreach ($lignes as $value) {
+            echo "<td>$value</td>";
+        }
+        echo "</tr>";
+    } while ($lignes = mysqli_fetch_assoc($resultat));
 } else {
-    echo "Le fichier n'existe pas.";
+    echo "<tr><td colspan='100%' style='text-align: center;'>La table des logs est vide.</td></tr>";
 }
+echo "</table>";
+
+mysqli_close($cnx);
+
 include("../templates/footer.html");
