@@ -55,11 +55,11 @@ if (isset($_GET['delete'])) {
         mysqli_stmt_bind_param($stmtHistorique, "s", $login);
         if (mysqli_stmt_execute($stmtHistorique)){
             echo "<p style='color: green; text-align: center;'>Utilisateur supprimé avec succès.</p>";
-            //log_suppression($login, true);
+            log_suppression($login, true);
         }
     } else {
         echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression.</p>";
-        //log_suppression($login, false);
+        log_suppression($login, false);
     }
     mysqli_stmt_close($stmt);
 }
