@@ -27,11 +27,6 @@ echo "<title>Historique</title>
     tr:hover {
         background-color: #ddd;
     }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
 </style>
 </head>
 <body>";

@@ -28,11 +28,6 @@ echo"<title>AdminWeb</title>
     tr:hover {
         background-color: #ddd;
     }
-
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
 </style>
 </head>
 <body>";
@@ -63,7 +58,6 @@ if (isset($_GET['delete'])) {
     }
     mysqli_stmt_close($stmt);
 }
-
 
 //Affichage des utilisateurs
 $sql = "SELECT * FROM Comptes";
