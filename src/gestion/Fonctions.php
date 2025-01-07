@@ -181,7 +181,7 @@ function calculerXBarreSimpson($a, $b, $mu, $lambda, $n) {
 
 // Fonction pour écrire dans le fichier de log les utilisateurs supprimés
 
-/*function log_suppression($login, $etat) {
+function log_suppression($login, $etat) {
     $date = date("Y-m-d H:i:s");
     $statut = $etat ? "suppression OK" : "suppression KO";
     $cnx = mysqli_connect("localhost","sae","sae");
@@ -190,7 +190,7 @@ function calculerXBarreSimpson($a, $b, $mu, $lambda, $n) {
     $stmt = mysqli_prepare($cnx, $sql);
     mysqli_stmt_bind_param($stmt, "sss", $date, $login, $statut);
     mysqli_stmt_execute($stmt);
-}*/
+}
 
 //fonction pour écrire dans le fichier de log les utilisateurs inscrits
 function log_inscription($login, $etat) {
