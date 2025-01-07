@@ -77,11 +77,13 @@ if (isset($_POST['SupprimerCompte'])) {
     mysqli_stmt_bind_param($stmt, "s", $login);
 
     if (mysqli_stmt_execute($stmt)) {
+        log_suppression($login, true);
         session_destroy();
         header("Location: Accueil.php");
         exit();
     } else {
         echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression du compte : " . mysqli_error($cnx) . "</p>";
+        log_suppression($login, false);
     }
 
     mysqli_stmt_close($stmt);
