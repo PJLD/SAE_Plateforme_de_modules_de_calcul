@@ -171,7 +171,7 @@ echo "</table>";
 
 
 
-echo "<h1>Importer un fichier CSV</h1>
+echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Importer un fichier CSV</h1>
 <form method='post' enctype='multipart/form-data'>
     <label for='csvFile'>Importez votre fichier CSV :</label>
     <input type='file' id='csvFile' name='csvFile' accept='.csv'>
