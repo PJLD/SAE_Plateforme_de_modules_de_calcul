@@ -32,15 +32,34 @@ if (isset($_POST["Inscription"])) {
     $mdp2 = md5($Mdp);
     $captcha = htmlspecialchars($_POST['captcha']);
 
+    $cnx = mysqli_connect("localhost", "sae", "sae");
+    $bd = mysqli_select_db($cnx, "SAE");
+
     if (!isset($_COOKIE['captcha']) || $captcha != $_COOKIE['captcha']) {
         echo "<p style='color: red; text-align: center;'>Captcha Incorrect. Veuillez réessayer.</p>";
+        log_inscription($Login, false);
+        mysqli_close($cnx);
     } else {
-        $cnx = mysqli_connect("localhost", "sae", "sae");
-        $bd = mysqli_select_db($cnx, "SAE");
 
         $sql = "INSERT INTO  Comptes (Login, MDP) VALUES (?, ?)";
 
         $stmt = mysqli_prepare($cnx, $sql);
+
+        // Vérifier si le login existe déjà
+        $sql_verif = "SELECT COUNT(*) FROM Comptes WHERE Login = ?";
+        $stmt_verif = mysqli_prepare($cnx, $sql_verif);
+        mysqli_stmt_bind_param($stmt_verif, "s", $Login);
+        mysqli_stmt_execute($stmt_verif);
+        mysqli_stmt_bind_result($stmt_verif, $existe);
+        mysqli_stmt_fetch($stmt_verif);
+        mysqli_stmt_close($stmt_verif);
+
+        if ($existe > 0) {
+            echo"<p style='color: red; text-align: center;'>Utilisateur $Login existe déjà.</p>";
+            log_inscription($Login, false);
+            mysqli_close($cnx);
+        }
+
         mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
 
         if (mysqli_stmt_execute($stmt)) {
