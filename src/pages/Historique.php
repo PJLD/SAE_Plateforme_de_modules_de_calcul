@@ -41,6 +41,24 @@ $resultat = mysqli_query($cnx, $sql);
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Historique des Calculs</h1>";
 
+echo"<form method='post' style='all: unset; display: flex; justify-content: center; margin-bottom: 50px;'>
+<button type='submit' name='SupprimerHistorique' style='font-family: cursive; padding: 5px; max-height: 80px; width: 14%; font-size: 14px; background-color: darkred; color: white; border: none; padding: 5px; margin-top: 5px; cursor: pointer;'>Supprimer mon historique</button>
+</form>";
+
+if (isset($_POST['SupprimerHistorique'])) {
+    $cnx = mysqli_connect("localhost", "sae", "sae");
+    $bd = mysqli_select_db($cnx, "SAE");
+
+
+    $suppressionHistorique = "DELETE FROM Historique WHERE Login = ?";
+    $stmt = mysqli_prepare($cnx, $suppressionHistorique);
+    $login = $_SESSION['login'];
+    mysqli_stmt_bind_param($stmt, "s", $login);
+    mysqli_stmt_execute($stmt);
+    header("Refresh: 0");
+    mysqli_stmt_close($stmt);
+}
+
 echo "<table>";
 
 $lignes = mysqli_fetch_assoc($resultat);
