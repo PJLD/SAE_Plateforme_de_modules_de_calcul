@@ -182,6 +182,7 @@ function calculerXBarreSimpson($a, $b, $mu, $lambda, $n) {
 // Fonction pour écrire dans le fichier de log les utilisateurs supprimés
 
 function log_suppression($login, $etat) {
+    date_default_timezone_set("Europe/Paris");
     $date = date("Y-m-d H:i:s");
     $statut = $etat ? "suppression OK" : "suppression KO";
     $cnx = mysqli_connect("localhost","sae","sae");
@@ -194,6 +195,7 @@ function log_suppression($login, $etat) {
 
 //fonction pour écrire dans le fichier de log les utilisateurs inscrits
 function log_inscription($login, $etat) {
+    date_default_timezone_set("Europe/Paris");
     $date = date("Y-m-d H:i:s");
     $statut = $etat ? "inscription OK" : "inscription KO";
     $cnx = mysqli_connect("localhost","sae","sae");
@@ -206,6 +208,7 @@ function log_inscription($login, $etat) {
 
 //fonction pour écrire dans le fichier de log les utilisateurs connectés
 function log_connexion($login, $etat) {
+    date_default_timezone_set("Europe/Paris");
     $date = date("Y-m-d H:i:s");
     $statut = $etat ? "connexion OK" : "connexion KO";
     $cnx = mysqli_connect("localhost","sae","sae");
@@ -217,6 +220,7 @@ function log_connexion($login, $etat) {
 }
 
 function log_deconnexion($login, $etat) {
+    date_default_timezone_set("Europe/Paris");
     $date = date("Y-m-d H:i:s");
     $statut = $etat ? "deconnexion OK" : "deconnexion KO";
     $cnx = mysqli_connect("localhost","sae","sae");
