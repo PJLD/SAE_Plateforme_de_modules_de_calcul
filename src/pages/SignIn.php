@@ -58,20 +58,19 @@ if (isset($_POST["Inscription"])) {
             echo"<p style='color: red; text-align: center;'>Utilisateur $Login existe déjà.</p>";
             log_inscription($Login, false);
             mysqli_close($cnx);
-        }
-
-        mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
-
-        if (mysqli_stmt_execute($stmt)) {
-            echo "<p style='color: green; text-align: center;'>Inscription réussie. Veuillez accéder à la page Login afin de vous connecter</p>";
-            log_inscription($Login, true);
         } else {
-            echo "<p style='color: red; text-align: center;'>Erreur lors de l'inscription. Veuillez réessayer</p>";
-            log_inscription($Login, false);
-        }
+            mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
+            if (mysqli_stmt_execute($stmt)) {
+                echo "<p style='color: green; text-align: center;'>Inscription réussie. Veuillez accéder à la page Login afin de vous connecter</p>";
+                log_inscription($Login, true);
+            } else {
+                echo "<p style='color: red; text-align: center;'>Erreur lors de l'inscription. Veuillez réessayer</p>";
+                log_inscription($Login, false);
+            }
 
-        mysqli_stmt_close($stmt);
-        mysqli_close($cnx);
+            mysqli_stmt_close($stmt);
+            mysqli_close($cnx);
+        }
     }
 }
 
