@@ -2,7 +2,9 @@
 session_start();
 require_once ("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>AdminWeb</title>
+
+echo"
+<title>AdminWeb</title>
 <style>
     /* Styles pour le tableau */
     table {
@@ -31,14 +33,14 @@ echo"<title>AdminWeb</title>
 </style>
 </head>
 <body>";
+
+
 gererNavBar();
+
 $cnx = mysqli_connect("localhost", "sae", "sae");
 $bd = mysqli_select_db($cnx, "SAE");
 
-
-
 //Suppression d'utilisateurs
-
 if (isset($_GET['delete'])) {
     $login = $_GET['delete'];
     $suppression = "DELETE FROM Comptes WHERE Login = ?";
@@ -60,7 +62,6 @@ if (isset($_GET['delete'])) {
 }
 
 //ajout avec csv
-
 $messages = "";
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_FILES['csvFile']) && $_FILES['csvFile']['error'] === UPLOAD_ERR_OK) {
@@ -71,7 +72,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Tableaux pour les logs
         $reussi = [];
         $rate = [];
-
 
         // Ouvrir le fichier CSV
         if (($fp = fopen($file, "r")) !== false) {
@@ -130,8 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 
-
-
 //Affichage des utilisateurs
 $sql = "SELECT * FROM Comptes";
 $result = mysqli_query($cnx, $sql);
@@ -140,7 +138,6 @@ $result = mysqli_query($cnx, $sql);
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Liste des utilisateurs</h1>";
 
 echo "<table>";
-
 $lignes = mysqli_fetch_assoc($result);
 
 if ($lignes) {
@@ -169,9 +166,8 @@ if ($lignes) {
 }
 echo "</table>";
 
-
-
-echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Importer un fichier CSV</h1>
+echo "
+<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Importer un fichier CSV</h1>
 <form method='post' enctype='multipart/form-data'>
     <label for='csvFile'>Importez votre fichier CSV :</label>
     <input type='file' id='csvFile' name='csvFile' accept='.csv'>
