@@ -2,23 +2,29 @@
 session_start();
 require_once ("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>Module de Calcul</title></head>
+
+echo"
+<title>Module de Calcul</title>
+</head>
 <body>";
+
 gererNavBar();
-echo"<h2>Veuillez saisir vos données</h2>
+
+echo"
+<h2>Veuillez saisir vos données</h2>
 <form method='post'>
-<label for='SerieA'>Série (xx,xx,xx,...)</label>
-<input type='text' name='SerieA' id='SerieA' placeholder='a,b,c,...'>
-<label for='Probabilites'>Probabilités (yy,yy,yy,...)</label>
-<input type='text' name='Probabilites' id='Probabilites' placeholder='0.1,0.2,0.3,...'>
-<label for='calcul'>Sélectionnez votre calcul</label>
-<select name='calcul' id='calcul'>
-<option value='Moyenne'>Moyenne</option>
-<option value='Esperance'>Esperance</option>
-<option value='Variance'>Variance</option>
-<option value='Ecart-type'>Ecart-type</option>
-</select>
-<button type='submit' name='Calculer' >Calculer</button>
+    <label for='SerieA'>Série (xx,xx,xx,...)</label>
+        <input type='text' name='SerieA' id='SerieA' placeholder='a,b,c,...'>
+    <label for='Probabilites'>Probabilités (yy,yy,yy,...)</label>
+        <input type='text' name='Probabilites' id='Probabilites' placeholder='0.1,0.2,0.3,...'>
+    <label for='calcul'>Sélectionnez votre calcul</label>
+        <select name='calcul' id='calcul'>
+            <option value='Moyenne'>Moyenne</option>
+            <option value='Esperance'>Esperance</option>
+            <option value='Variance'>Variance</option>
+            <option value='Ecart-type'>Ecart-type</option>
+        </select>
+    <button type='submit' name='Calculer' >Calculer</button>
 </form>";
 
 // Traitement du formulaire
@@ -28,11 +34,9 @@ if (isset($_POST['Calculer'])) {
     $calcul = $_POST['calcul'];
     $login = $_SESSION['login'];
     $date = date('Y-m-d H:i:s');
-
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
 
-    // Calculer le résultat
     $resultat = null;
     $message = null;
 
