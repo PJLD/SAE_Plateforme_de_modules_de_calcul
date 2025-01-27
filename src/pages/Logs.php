@@ -2,7 +2,9 @@
 session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>Logs</title>
+
+echo"
+<title>Logs</title>
 <style>
     table {
         width: 70%;
@@ -29,21 +31,19 @@ echo"<title>Logs</title>
 </style>
 </head>
 <body>";
+
 gererNavBar();
 
 $cnx = mysqli_connect("localhost", "sae", "sae");
 $bd = mysqli_select_db($cnx, "SAE");
 $login = $_SESSION['login'];
-
 $sql = "SELECT * FROM Logs ORDER BY Date DESC";
 $resultat = mysqli_query($cnx, $sql);
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Base des Logs</h1>";
 
 echo "<table>";
-
 $lignes = mysqli_fetch_assoc($resultat);
-
 if ($lignes) {
     echo "<tr>";
     foreach ($lignes as $key => $value) {
