@@ -2,10 +2,16 @@
 session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>Mot de Passe Oublie</title></head>
+
+echo"
+<title>Mot de Passe Oublie</title>
+</head>
 <body>";
+
 gererNavBar();
-echo"<div style='height: 80px;'></div>
+
+echo"
+<div style='height: 80px;'></div>
 <div style='text-align: center; margin: 20px 0;'>
     <img src='../images/Construction.png' alt='Image Construction Site Web'>
 </div>
@@ -16,4 +22,5 @@ echo"<div style='height: 80px;'></div>
     <p>Merci pour votre patience et votre compréhension.</p>
     <p>(L'équipe de développement du site)</p>
 </div>";
+
 include("../templates/footer.html");
