@@ -2,6 +2,7 @@
 session_start();
 include("../templates/header.html");
 require_once("../gestion/Fonctions.php");
+
 echo"<title>Loi de Probabilité</title>
 <style>
     /* Styles pour le tableau */
@@ -33,28 +34,32 @@ echo"<title>Loi de Probabilité</title>
 </style>
 </head>
 <body>";
+
 gererNavBar();
-echo"<h2>Loi Inverse-Gaussienne</h2>
+
+echo"
+<h2>Loi Inverse-Gaussienne</h2>
 <form method='post' style='max-width: 25%;'>
-<label for='mu'>L'espérance μ</label>
-<input type='number' name='mu' id='mu' placeholder='μ' required>
-<label for='lambda'>La forme λ</label>
-<input type='number' name='lambda' id='lambda' placeholder='λ' required>
-<label for='a'>Valeur de la borne inférieure a (avec a > 0)</label>
-<input type='number' name='a' id='a' placeholder='a' min='1' required>
-<label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne et t > a</label>
-<input type='number' name='t' id='t' placeholder='t' min='1' required>
-<label for='n'>Le nombre de sous intervalles (avec n > 0)</label>
-<input type='number' name='n' id='n' placeholder='n' min='1' required>
-<label for='methode'>Sélectionnez votre méthode de calcul</label>
-<select name='methode' id='methode'>
-<option value='Methode des trapezes'>Méthode des trapezes</option>
-<option value='Methode des rectangles'>Méthode des rectangles(médian)</option>
-<option value='Methode de Simpson'>Méthode de Simpson</option>
-</select>
-<button type='submit' name='Calculer' >Calculer</button>
+    <label for='mu'>L'espérance μ</label>
+        <input type='number' name='mu' id='mu' placeholder='μ' required>
+    <label for='lambda'>La forme λ</label>
+        <input type='number' name='lambda' id='lambda' placeholder='λ' required>
+    <label for='a'>Valeur de la borne inférieure a (avec a > 0)</label>
+        <input type='number' name='a' id='a' placeholder='a' min='1' required>
+    <label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne et t > a</label>
+        <input type='number' name='t' id='t' placeholder='t' min='1' required>
+    <label for='n'>Le nombre de sous intervalles (avec n > 0)</label>
+        <input type='number' name='n' id='n' placeholder='n' min='1' required>
+    <label for='methode'>Sélectionnez votre méthode de calcul</label>
+        <select name='methode' id='methode'>
+            <option value='Methode des trapezes'>Méthode des trapezes</option>
+            <option value='Methode des rectangles'>Méthode des rectangles(médian)</option>
+            <option value='Methode de Simpson'>Méthode de Simpson</option>
+        </select>
+    <button type='submit' name='Calculer' >Calculer</button>
 </form>";
 
+//traitement du calcul (bouton 'Calculer')
 if (isset($_POST['Calculer'])) {
     $a=0;
     $mu = $_POST['mu'];
@@ -62,7 +67,6 @@ if (isset($_POST['Calculer'])) {
     $b = $_POST['t']; //correspond au champ de t
     $n = $_POST['n'];
     $a=$_POST['a'];
-
     $calcul = $_POST['methode'];
 
     $login = $_SESSION['login'];
@@ -126,9 +130,10 @@ if (isset($_POST['Calculer'])) {
     }
 
     // Affichage du graphique
-    echo "<div style='display: flex; justify-content: center; margin-top: 30px;'>
-            <canvas id='graphCanvas' style='width: 600px; height: 400px;'></canvas>
-          </div>";
+    echo "
+    <div style='display: flex; justify-content: center; margin-top: 30px;'>
+        <canvas id='graphCanvas' style='width: 600px; height: 400px;'></canvas>
+    </div>";
 
     echo "
     <script src='https://cdn.jsdelivr.net/npm/chart.js'></script> <!--importation de chart.js-->

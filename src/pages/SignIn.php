@@ -2,8 +2,12 @@
 session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>Sign In</title></head>
+
+echo"
+<title>Sign In</title>
+</head>
 <body>";
+
 gererNavBar();
 
 $elem1 = rand(1, 10);
@@ -13,19 +17,20 @@ $valeur_captcha = $elem1 * $elem2;
 
 setcookie('captcha', $valeur_captcha, time() + 1800, "/");
 
-echo"<h2>Créer un compte</h2>
+echo"
+<h2>Créer un compte</h2>
 <form method='post'>
-<label for='Login'>Login</label>
-<input type='text' name='Login' id='Login' placeholder='Login' required>
-<label for='Mdp'>Mot de Passe</label>
-<input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
-<label for='captcha'>$elem1 * $elem2</label>
-<input type='text' name='captcha' id='captcha' placeholder='Résultat de l opération'>
-<button type='submit' name='Inscription'>S'inscrire</button>
+    <label for='Login'>Login</label>
+        <input type='text' name='Login' id='Login' placeholder='Login' required>
+    <label for='Mdp'>Mot de Passe</label>
+        <input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
+    <label for='captcha'>$elem1 * $elem2</label>
+        <input type='text' name='captcha' id='captcha' placeholder='Résultat de l opération'>
+    <button type='submit' name='Inscription'>S'inscrire</button>
 </form>
 <p><a href='Login.php'>J'ai déja un compte</a></p>";
 
-
+//traitement de l'inscription
 if (isset($_POST["Inscription"])) {
     $Login = $_POST["Login"];
     $Mdp = $_POST["Mdp"];
@@ -40,9 +45,7 @@ if (isset($_POST["Inscription"])) {
         log_inscription($Login, false);
         mysqli_close($cnx);
     } else {
-
         $sql = "INSERT INTO  Comptes (Login, MDP) VALUES (?, ?)";
-
         $stmt = mysqli_prepare($cnx, $sql);
 
         // Vérifier si le login existe déjà
