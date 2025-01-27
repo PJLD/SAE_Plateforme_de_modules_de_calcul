@@ -2,20 +2,27 @@
 session_start();
 require_once("../gestion/Fonctions.php");
 include("../templates/header.html");
-echo"<title>Log In</title></head>
+
+echo"
+<title>Log In</title>
+</head>
 <body>";
+
 gererNavBar();
-echo"<h2>Se connecter</h2>
+
+echo"
+<h2>Se connecter</h2>
 <form method='post'>
-<label for='Login'>Login</label>
-<input type='text' name='Login' id='Login' placeholder='Login' required>
-<label for='Mdp'>Mot de Passe</label>
-<input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
-<button type='submit' name='Connexion' >Connexion</button>
+    <label for='Login'>Login</label>
+        <input type='text' name='Login' id='Login' placeholder='Login' required>
+    <label for='Mdp'>Mot de Passe</label>
+        <input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
+    <button type='submit' name='Connexion' >Connexion</button>
 </form>
 <p><a href='MotDePasseOublie.php'>Mot de passe oublié ?</a></p>
 <p><a href='SignIn.php'>Créer un compte</a></p>";
 
+//traitement de la connexion
 if(isset($_POST['Connexion'])){
     $login = htmlspecialchars($_POST['Login']);
     $mdp = htmlspecialchars($_POST['Mdp']);
