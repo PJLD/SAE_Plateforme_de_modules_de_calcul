@@ -38,7 +38,7 @@ if(isset($_POST['Connexion'])){
         session_start(); // Démarrer la session
         $_SESSION['login'] = $login; // Enregistrer le login
         $_SESSION['mdp'] = $mdp;     // Enregistrer le mot de passe
-        header("Location: Profil.php"); // Redirection vers la page de profil
+        header("Location: Accueil.php"); // Redirection vers la page d'accueil
         log_connexion($login, true);
         exit();
     } else {
