@@ -268,7 +268,7 @@ p {
     color: #16264b; /* Texte légèrement moins foncé pour améliorer la lisibilité */
 }
 .tableau-resultats {
-    width: 80%; /* Largeur du tableau */
+    width: 50%; /* Largeur du tableau */
     margin: 30px auto; /* Centré avec un espace autour */
     border-collapse: collapse; /* Fusionne les bordures */
     background-color: #f5f5f5; /* Fond clair */
