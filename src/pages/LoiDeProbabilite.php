@@ -90,20 +90,17 @@ if (isset($_POST['Calculer'])) {
     else{
         if ($calcul =='Methode des trapezes') {
             $result = methodeDesTrapezes($a, $b, $mu, $lambda,$n);
-            $moyenne = calculerXBarreTrapeze($a,$b,$mu,$lambda,$n);
         }elseif ($calcul =='Methode des rectangles') {
             $result = methodeDesRectangles($a, $b, $mu, $lambda,$n);
-            $moyenne = calculerXBarreRectangles($a,$b,$mu,$lambda,$n);
         }elseif ($calcul =='Methode de Simpson') {
             $result = methodeDeSimpson($a, $b,$mu,$lambda,$n);
-            $moyenne=calculerXBarreSimpson($a,$b,$mu,$lambda,$n);
         }
         $sigma = sqrt(pow($mu,3) / $lambda);
 
         $resultats = [
             'Résultat' => $result,
             'Lambda' => $lambda,
-            'Moyenne'=> $moyenne,
+            'Moyenne'=> $mu,
             'Ecart-type' => $sigma,
             'Méthode' => $calcul
         ];
