@@ -21,11 +21,11 @@ echo"
 <h2>Créer un compte</h2>
 <form method='post'>
     <label for='Login'>Login</label>
-        <input type='text' name='Login' id='Login' placeholder='Login' required>
+        <input type='text' name='Login' id='Login' placeholder='Login' minlength='6' maxlength='20' required>
     <label for='Mdp'>Mot de Passe</label>
-        <input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
+        <input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' minlength='6' required>
     <label for='ConfirmerMdp'>Confirmation du Mot de Passe</label>
-        <input type='password' name='ConfirmerMdp' id='ConfirmerMdp' placeholder='Confirmation du Mot de Passe' required>
+        <input type='password' name='ConfirmerMdp' id='ConfirmerMdp' placeholder='Confirmation du Mot de Passe' minlength='6' required>
     <label for='captcha'>$elem1 * $elem2</label>
         <input type='text' name='captcha' id='captcha' placeholder='Résultat de l opération'>
     <button type='submit' name='Inscription'>S'inscrire</button>
