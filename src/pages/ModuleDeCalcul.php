@@ -33,7 +33,7 @@ if (isset($_POST['Calculer'])) {
     $probabilites = explode(',', $_POST['Probabilites']);
     $calcul = $_POST['calcul'];
     $login = $_SESSION['login'];
-    $date = date('Y-m-d H:i:s');
+    $date = (new DateTime())->format("d/m/Y H:i:s");
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
 
@@ -70,7 +70,7 @@ if (isset($_POST['Calculer'])) {
         echo "<h3>Résultat du calcul : $calcul</h3>
               <p><strong>$resultat</strong></p>";
 
-        $sql = "INSERT INTO Historique (login, date, calcul, resultat) VALUES (?, ?, ?, ?)";
+        $sql = "INSERT INTO Historique (login, DateHistorique, calcul, resultat) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($cnx, $sql);
         mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $resultat);
         if (mysqli_stmt_execute($stmt)) {
