@@ -274,7 +274,7 @@ function log_suppression($login, $etat) {
      * @return void
      */
     date_default_timezone_set("Europe/Paris");
-    $date = date("Y-m-d H:i:s");
+    $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "suppression OK" : "suppression KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
@@ -294,7 +294,7 @@ function log_inscription($login, $etat) {
      * @return void
      */
     date_default_timezone_set("Europe/Paris");
-    $date = date("Y-m-d H:i:s");
+    $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "inscription OK" : "inscription KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
@@ -314,7 +314,7 @@ function log_connexion($login, $etat) {
      * @return void
      */
     date_default_timezone_set("Europe/Paris");
-    $date = date("Y-m-d H:i:s");
+    $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "connexion OK" : "connexion KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
@@ -334,7 +334,7 @@ function log_deconnexion($login, $etat) {
      * @return void
      */
     date_default_timezone_set("Europe/Paris");
-    $date = date("Y-m-d H:i:s");
+    $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "deconnexion OK" : "deconnexion KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
