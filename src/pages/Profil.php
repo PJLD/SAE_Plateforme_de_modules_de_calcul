@@ -17,9 +17,9 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
         <h3 style='margin: 10px;'>Modifier votre mot de passe</h3>
         <form method='post' style='text-align: left;'>
             <label for='AncienMDP'>Ancien mot de passe</label>
-                <input type='password' name='AncienMDP' id='AncienMDP' placeholder='Votre ancien mot de passe' required><br><br>
+                <input type='password' name='AncienMDP' id='AncienMDP' placeholder='Votre ancien mot de passe' minlength='6' required><br><br>
             <label for='NouveauMDP'>Nouveau mot de passe :</label>
-                <input type='password' name='NouveauMDP' id='NouveauMDP' placeholder='Votre nouveau mot de passe' required><br><br>
+                <input type='password' name='NouveauMDP' id='NouveauMDP' placeholder='Votre nouveau mot de passe' minlength='6' required><br><br>
             <button type='submit' name='ModifierMDP' style='width: 75%; background-color: #1c305f; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Modifier mon mot de passe</button>
         </form>
     </div>";
