@@ -24,6 +24,8 @@ echo"
         <input type='text' name='Login' id='Login' placeholder='Login' required>
     <label for='Mdp'>Mot de Passe</label>
         <input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' required>
+    <label for='ConfirmerMdp'>Confirmation du Mot de Passe</label>
+        <input type='password' name='ConfirmerMdp' id='ConfirmerMdp' placeholder='Confirmation du Mot de Passe' required>
     <label for='captcha'>$elem1 * $elem2</label>
         <input type='text' name='captcha' id='captcha' placeholder='Résultat de l opération'>
     <button type='submit' name='Inscription'>S'inscrire</button>
@@ -35,6 +37,7 @@ if (isset($_POST["Inscription"])) {
     $Login = $_POST["Login"];
     $Mdp = $_POST["Mdp"];
     $mdp2 = md5($Mdp);
+    $confirmerMdp = $_POST["ConfirmerMdp"];
     $captcha = htmlspecialchars($_POST['captcha']);
 
     $cnx = mysqli_connect("localhost", "sae", "sae");
@@ -62,15 +65,19 @@ if (isset($_POST["Inscription"])) {
             log_inscription($Login, false);
             mysqli_close($cnx);
         } else {
-            mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
-            if (mysqli_stmt_execute($stmt)) {
-                echo "<p style='color: green; text-align: center;'>Inscription réussie. Veuillez accéder à la page Login afin de vous connecter</p>";
-                log_inscription($Login, true);
+            if ($Mdp == $confirmerMdp) {
+                mysqli_stmt_bind_param($stmt, "ss", $Login, $mdp2);
+                if (mysqli_stmt_execute($stmt)) {
+                    log_inscription($Login, true);
+                    header("Location: Login.php");
+                } else {
+                    echo "<p style='color: red; text-align: center;'>Erreur lors de l'inscription. Veuillez réessayer</p>";
+                    log_inscription($Login, false);
+                }
             } else {
-                echo "<p style='color: red; text-align: center;'>Erreur lors de l'inscription. Veuillez réessayer</p>";
+                echo "<p style='color: red; text-align: center;'>Les deux mots de passe sont différents.</p>";
                 log_inscription($Login, false);
             }
-
             mysqli_stmt_close($stmt);
             mysqli_close($cnx);
         }
