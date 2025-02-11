@@ -111,10 +111,8 @@ function methodeDesTrapezes($a, $b, $mu, $lambda, $n) {
      */
     $h = ($b - $a) / $n;
     $sum = 0.5 * (loiInverseGaussienne($a, $mu, $lambda) + loiInverseGaussienne($b, $mu, $lambda));
-
-    for ($k = 1; $k < $n; $k++) {
-        $ak = $a + $k * $h;
-        $sum += loiInverseGaussienne($ak, $mu, $lambda);
+    for ($i = 1; $i < $n; $i++) {
+        $sum += loiInverseGaussienne($a + $i * $h, $mu, $lambda);
     }
     return $sum * $h;
 }
@@ -132,16 +130,11 @@ function methodeDesRectangles($a, $b, $mu, $lambda, $n) {
      * @return float : La valeur de l'intégrale.
      */
     $h = ($b - $a) / $n;
-    $somme = 0;
-
-    for ($k = 0; $k < $n; $k++) {
-        $ak = $a + $k * $h;
-        $ak_plus_1 = $ak + $h;
-        $moyenne = ($ak + $ak_plus_1) / 2;
-        $somme += loiInverseGaussienne($moyenne, $mu, $lambda);
+    $sum = 0;
+    for ($i = 0; $i < $n; $i++) {
+        $sum += loiInverseGaussienne($a + ($i + 0.5) * $h, $mu, $lambda);
     }
-
-    return $somme * $h;
+    return $sum * $h;
 }
 
 function methodeDeSimpson($a, $b, $mu, $lambda, $n) {
@@ -157,24 +150,18 @@ function methodeDeSimpson($a, $b, $mu, $lambda, $n) {
      * @return float|null : La valeur de l'intégrale, ou null si $n est impair.
      */
     if ($n % 2 != 0) {
-        echo "Le nombre de subdivisions n doit être pair.\n";
-        return null;
+        echo"Le nombre de subdivisions doit etre pair"; // Simpson's rule requires an even number of intervals
     }
-
     $h = ($b - $a) / $n;
-    $somme = loiInverseGaussienne($a, $mu, $lambda) + loiInverseGaussienne($b, $mu, $lambda);
-
-    for ($k = 1; $k < $n; $k += 2) {
-        $ak = $a + $k * $h;
-        $somme += 4 * loiInverseGaussienne($ak, $mu, $lambda);
+    $sum = loiInverseGaussienne($a, $mu, $lambda) + loiInverseGaussienne($b, $mu, $lambda);
+    for ($i = 1; $i < $n; $i++) {
+        if ($i % 2 == 0) {
+            $sum += 2 * loiInverseGaussienne($a + $i * $h, $mu, $lambda);
+        } else {
+            $sum += 4 * loiInverseGaussienne($a + $i * $h, $mu, $lambda);
+        }
     }
-
-    for ($k = 2; $k < $n - 1; $k += 2) {
-        $ak = $a + $k * $h;
-        $somme += 2 * loiInverseGaussienne($ak, $mu, $lambda);
-    }
-
-    return ($b - $a) * $somme / (6 * $n);
+    return $sum * $h / 3;
 }
 
 function calculerXBarreTrapeze($a, $b, $mu, $lambda, $n) {
@@ -213,19 +200,14 @@ function calculerXBarreRectangles($a, $b, $mu, $lambda, $n) {
      * @return float : La moyenne pondérée.
      */
     $h = ($b - $a) / $n;
-    $sumNumerateur = 0;
-    $sumDenominateur = 0;
+    $sum = 0;
 
     for ($k = 0; $k < $n; $k++) {
-        $ak = $a + $k * $h;
-        $ak_plus_1 = $ak + $h;
-        $moyenne = ($ak + $ak_plus_1) / 2;
-
-        $sumNumerateur += $moyenne * loiInverseGaussienne($moyenne, $mu, $lambda);
-        $sumDenominateur += loiInverseGaussienne($moyenne, $mu, $lambda);
+        $ak = $a + ($k + 0.5) * $h;
+        $sum += $ak * loiInverseGaussienne($ak, $mu, $lambda);
     }
 
-    return $sumNumerateur / $sumDenominateur;
+    return $sum * $h;
 }
 
 function calculerXBarreSimpson($a, $b, $mu, $lambda, $n) {
@@ -246,22 +228,15 @@ function calculerXBarreSimpson($a, $b, $mu, $lambda, $n) {
     }
 
     $h = ($b - $a) / $n;
-    $sumNumerateur = loiInverseGaussienne($a, $mu, $lambda) * $a + loiInverseGaussienne($b, $mu, $lambda) * $b;
-    $sumDenominateur = loiInverseGaussienne($a, $mu, $lambda) + loiInverseGaussienne($b, $mu, $lambda);
+    $sum = $a * loiInverseGaussienne($a, $mu, $lambda) + $b * loiInverseGaussienne($b, $mu, $lambda);
 
-    for ($k = 1; $k < $n; $k += 2) {
+    for ($k = 1; $k < $n; $k++) {
         $ak = $a + $k * $h;
-        $sumNumerateur += 4 * $ak * loiInverseGaussienne($ak, $mu, $lambda);
-        $sumDenominateur += 4 * loiInverseGaussienne($ak, $mu, $lambda);
+        $weight = ($k % 2 === 0) ? 2 : 4;
+        $sum += $weight * $ak * loiInverseGaussienne($ak, $mu, $lambda);
     }
 
-    for ($k = 2; $k < $n - 1; $k += 2) {
-        $ak = $a + $k * $h;
-        $sumNumerateur += 2 * $ak * loiInverseGaussienne($ak, $mu, $lambda);
-        $sumDenominateur += 2 * loiInverseGaussienne($ak, $mu, $lambda);
-    }
-
-    return $sumNumerateur / $sumDenominateur;
+    return $sum * $h / 3;
 }
 
 function log_suppression($login, $etat) {
