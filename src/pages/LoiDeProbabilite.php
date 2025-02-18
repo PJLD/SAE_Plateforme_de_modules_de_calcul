@@ -41,13 +41,13 @@ echo"
 <h2>Loi Inverse-Gaussienne</h2>
 <form method='post' style='max-width: 25%;'>
     <label for='mu'>L'espérance μ</label>
-        <input type='number' name='mu' id='mu' placeholder='μ' required>
+        <input name='mu' id='mu' placeholder='μ' required>
     <label for='lambda'>La forme λ</label>
-        <input type='number' name='lambda' id='lambda' placeholder='λ' required>
+        <input name='lambda' id='lambda' placeholder='λ' required>
     <label for='t'>t tel que P(X ≤ t) où X suit la loi inverse-gaussienne</label>
-        <input type='number' name='t' id='t' placeholder='t' required>
+        <input name='t' id='t' placeholder='t' required>
     <label for='n'>Le nombre de sous intervalles (avec n > 0)</label>
-        <input type='number' name='n' id='n' placeholder='n' required>
+        <input name='n' id='n' placeholder='n' required>
     <label for='methode'>Sélectionnez votre méthode de calcul</label>
         <select name='methode' id='methode'>
             <option value='Methode des trapezes'>Méthode des trapezes</option>
@@ -72,17 +72,26 @@ if (isset($_POST['Calculer'])) {
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
 
-    if ($b <= 0 || $n < 0 || $mu < 0 || $lambda < 0) {
-        $result=  "Vérifer que tout vos parametres soit bien postif";
+    if (!is_numeric($mu) || !is_numeric($lambda) || !is_numeric($b) || !is_numeric($n)) {
+        echo "<div class='resultatConteneur'>";
+        echo "<h3>Résultat du calcul : $calcul</h3>";
+        echo "<p style='color: red;'>Erreur : Toutes les valeurs doivent être des nombres (entiers ou flottants).</p>";
+        echo "</div>";
+        include("../templates/footer.html");
+        exit;
+    }
+
+    if ($b <= 0 || $n <= 0 || $mu <= 0 || $lambda <= 0) {
+        $result=  "Vérifier que tout vos paramètres soient strictement positifs";
         echo "<div class='resultatConteneur'>";
         echo "<h3>Résultat du calcul : $calcul</h3>
-        <p><strong>$result</strong></p>";
+        <p style='color: red;'>Erreur : ".$result."</p>";
         echo "</div>";
-    }elseif ($calcul == 'Methode de Simpson' && $n%2==1){
+    }else if ($calcul == 'Methode de Simpson' && $n%2==1){
         $result= "Vous avez choisi la méthode de Simpson, donc ajuster un nombre de sous-intervalles pair";
         echo "<div class='resultatConteneur'>";
         echo "<h3>Résultat du calcul : $calcul</h3>
-        <p><strong>$result</strong></p>";
+        <p style='color: red;'>Erreur : ".$result."</p>";
         echo "</div>";
     }
 
