@@ -14,20 +14,27 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
     echo "
     <div style='text-align: center; max-width: 600px; margin: auto;'>
         <h2>Bienvenue sur votre profil, <span style='color: #1c305f;'>" . htmlspecialchars($_SESSION['login']) . "</span></h2>
-        <h3 style='margin: 10px;'>Modifier votre mot de passe</h3>
+        <h3 style='margin: 10px;'>Modifier mon mot de passe</h3>
         <form method='post' style='text-align: left;'>
             <label for='AncienMDP'>Ancien mot de passe</label>
                 <input type='password' name='AncienMDP' id='AncienMDP' placeholder='Votre ancien mot de passe' minlength='6' required><br><br>
             <label for='NouveauMDP'>Nouveau mot de passe :</label>
-                <input type='password' name='NouveauMDP' id='NouveauMDP' placeholder='Votre nouveau mot de passe' minlength='6' required><br><br>
+                <input type='password' name='NouveauMDP' id='NouveauMDP' placeholder='Votre nouveau mot de passe'  minlength='6' required><br><br>
             <button type='submit' name='ModifierMDP' style='width: 75%; background-color: #1c305f; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Modifier mon mot de passe</button>
         </form>
     </div>";
 
     echo"
-    <form method='post'>
-        <button type='submit' name='SupprimerCompte' style='width: 75%; background-color: darkred; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Supprimer mon compte</button>
-    </form>";
+    <div style='text-align: center; max-width: 600px; margin: auto;'>
+        <h3 style='margin: 10px;'>Supprimer mon compte</h3>
+        <form method='post'>
+            <label for='Mdp'>Mot de Passe</label>
+                <input type='password' name='Mdp' id='Mdp' placeholder='Mot de passe' minlength='6' required>
+            <label for='ConfirmerMdp'>Confirmation du Mot de Passe</label>
+                <input type='password' name='ConfirmerMdp' id='ConfirmerMdp' placeholder='Confirmation du Mot de Passe' minlength='6' required>
+            <button type='submit' name='SupprimerCompte' style='width: 75%; background-color: darkred; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Supprimer mon compte</button>
+        </form>
+    </div>";
 
     if (isset($_POST['ModifierMDP'])) {
         $AncienMDP = htmlspecialchars($_POST['AncienMDP']);
@@ -70,21 +77,29 @@ if (isset($_SESSION['login']) && isset($_SESSION['mdp'])) {
 
 //traitement de la suppression du compte
 if (isset($_POST['SupprimerCompte'])) {
+    $mdp1 = $_POST['Mdp'];
+    $mdp2 = $_POST['ConfirmerMdp'];
+    $mdp2md5 = md5($mdp2);
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
 
-    $suppression = "DELETE FROM Comptes WHERE Login = ?";
+    $suppression = "DELETE FROM Comptes WHERE Login = ? AND Mdp = ?";
     $stmt = mysqli_prepare($cnx, $suppression);
     $login = $_SESSION['login'];
-    mysqli_stmt_bind_param($stmt, "s", $login);
+    mysqli_stmt_bind_param($stmt, "ss", $login, $mdp2md5);
 
-    if (mysqli_stmt_execute($stmt)) {
-        log_suppression($login, true);
-        session_destroy();
-        header("Location: Accueil.php");
-        exit();
+    if($mdp1 == $mdp2){
+        if (mysqli_stmt_execute($stmt)) {
+            log_suppression($login, true);
+            session_destroy();
+            header("Location: Accueil.php");
+            exit();
+        } else {
+            echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression du compte : " . mysqli_error($cnx) . "</p>";
+            log_suppression($login, false);
+        }
     } else {
-        echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression du compte : " . mysqli_error($cnx) . "</p>";
+        echo "<p style='color: red; text-align: center;'>Les deux mots de passe ne correspondent pas.</p>";
         log_suppression($login, false);
     }
 
