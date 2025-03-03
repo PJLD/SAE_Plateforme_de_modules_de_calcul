@@ -57,6 +57,31 @@ echo"
     <button type='submit' name='Calculer' >Calculer</button>
 </form>";
 
+
+
+
+$cnx = mysqli_connect("localhost", "sae", "sae");
+$bd = mysqli_select_db($cnx, "SAE");
+
+//ajout historique
+if (isset($_GET['historique'])) {
+    $login = $_GET['login'];
+    $date = $_GET['date'];
+    $calcul = $_GET['calcul'];
+    $result = $_GET['result'];
+
+    $sql = "INSERT INTO Historique (login, DateHistorique, calcul, resultat) VALUES (?, ?, ?, ?)";
+    $stmt = mysqli_prepare($cnx, $sql);
+
+    mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $result);
+    if (mysqli_stmt_execute($stmt)) {
+        echo "<p style='color: green; text-align: center;'>Le résultat a été enregistré dans votre historique</p>";
+    } else {
+        echo "<p style='color: red; text-align: center;'>Erreur lors de l'enregistrement du résultat dans votre historique</p>";
+    }
+    mysqli_stmt_close($stmt);
+}
+
 //traitement du calcul (bouton 'Calculer')
 if (isset($_POST['Calculer'])) {
     $result="";
@@ -68,9 +93,10 @@ if (isset($_POST['Calculer'])) {
     $calcul = $_POST['methode'];
 
     $login = $_SESSION['login'];
+
+    date_default_timezone_set("Europe/Paris");
     $date = (new DateTime())->format("d/m/Y H:i:s");
-    $cnx = mysqli_connect("localhost", "sae", "sae");
-    $bd = mysqli_select_db($cnx, "SAE");
+
 
     if (!is_numeric($mu) || !is_numeric($lambda) || !is_numeric($b) || !is_numeric($n)) {
         echo "<div class='resultatConteneur'>";
@@ -114,28 +140,24 @@ if (isset($_POST['Calculer'])) {
             'Méthode' => $calcul
         ];
 
+
         echo "<table class='tableau-resultats'>";
         echo "<tbody>";
         foreach ($resultats as $parametre => $valeur) {
             echo "<tr>";
-            echo "<td>" . $parametre . "</td>";
-            echo '<td>' . $valeur . "</td>";
+            echo "<td>".$parametre."</td>";
+            echo '<td>'.$valeur."</td>";
             echo "</tr>";
         }
+
         echo "</tbody>";
         echo "</table>";
+
+        echo "<a href='?historique=true&login=".$login."&date=".$date."&calcul=".$calcul."&result=".$result."' class='link'>ajouter à l'historique</a>";
 
         echo "<div class='resultatConteneur'>";
         echo "<h3>Résultat du calcul : $calcul</h3>
     <p><strong>$result</strong></p>";
-        $sql = "INSERT INTO Historique (login, DateHistorique, calcul, resultat) VALUES (?, ?, ?, ?)";
-        $stmt = mysqli_prepare($cnx, $sql);
-        mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $result);
-        if (mysqli_stmt_execute($stmt)) {
-            echo "<p style='color: green; text-align: center;'>Le résultat a été enregistré dans votre historique</p>";
-        } else {
-            echo "<p style='color: red; text-align: center;'>Erreur lors de l'enregistrement du résultat dans votre historique</p>";
-        }
         echo "</div>";
 
         // Calcul des points pour le graphique
@@ -148,6 +170,11 @@ if (isset($_POST['Calculer'])) {
             $points_x[] = $x;
             $points_y[] = $y;
         }
+
+
+
+
+
 
         // Affichage du graphique
         echo "
