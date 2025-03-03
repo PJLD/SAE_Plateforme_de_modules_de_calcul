@@ -31,6 +31,23 @@ echo"<title>Loi de Probabilité</title>
     tr:hover {
         background-color: #ddd;
     }
+    .link {
+    display: inline-block;  
+    padding: 10px 20px;  
+    font-size: 16px;  
+    font-weight: bold;  
+    color: white;  
+    background-color: #1c305f;
+    border: none;  
+    border-radius: 5px;  
+    text-decoration: none;  
+    cursor: pointer;  
+    transition: background-color 0.3s, transform 0.2s;
+    }
+    .link:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
 </style>
 </head>
 <body>";
@@ -153,7 +170,7 @@ if (isset($_POST['Calculer'])) {
         echo "</tbody>";
         echo "</table>";
 
-        echo "<a href='?historique=true&login=".$login."&date=".$date."&calcul=".$calcul."&result=".$result."' class='link'>ajouter à l'historique</a>";
+        echo "<a href='?historique=true&login=".$login."&date=".$date."&calcul=".$calcul."&result=".$result."' class='link'>Ajouter à l'historique</a>";
 
         echo "<div class='resultatConteneur'>";
         echo "<h3>Résultat du calcul : $calcul</h3>
