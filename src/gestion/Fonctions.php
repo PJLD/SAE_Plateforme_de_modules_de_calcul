@@ -18,6 +18,72 @@ function gererNavBar(){
     }
 }
 
+/**
+ * Implémente l'algorithme RC4 pour chiffrer ou déchiffrer des données.
+ *
+ * @param string $cle La clé de chiffrement utilisée pour initialiser l'algorithme.
+ * @param string $donnees Les données à chiffrer ou à déchiffrer.
+ * @return string Les données chiffrées ou déchiffrées.
+ */
+function rc4($cle, $donnees) {
+    $s = range(0, 255); // Initialisation du tableau S avec les valeurs de 0 à 255
+    $j = 0;
+    $longueurCle = strlen($cle);
+
+
+    // Initialisation de la permutation S avec la clé
+    for ($i = 0; $i < 256; $i++) {
+        $j = ($j + $s[$i] + ord($cle[$i % $longueurCle])) % 256;
+        list($s[$i], $s[$j]) = [$s[$j], $s[$i]]; // Échange des valeurs
+    }
+
+
+    // Génération du flux de clé et chiffrement/déchiffrement
+    $i = $j = 0;
+    $sortie = '';
+    $longueurDonnees = strlen($donnees);
+
+
+    for ($k = 0; $k < $longueurDonnees; $k++) {
+        $i = ($i + 1) % 256;
+        $j = ($j + $s[$i]) % 256;
+        list($s[$i], $s[$j]) = [$s[$j], $s[$i]]; // Échange des valeurs
+
+
+        $t = ($s[$i] + $s[$j]) % 256;
+        $octetFluxCle = $s[$t];
+
+
+        $sortie .= chr(ord($donnees[$k]) ^ $octetFluxCle); // Opération XOR avec le flux de clé
+    }
+
+
+    return $sortie;
+}
+
+
+/**
+ * Chiffre une chaîne de caractères avec RC4 et retourne le résultat en hexadécimal.
+ *
+ * @param string $cle La clé de chiffrement utilisée.
+ * @param string $texteClair Le texte en clair à chiffrer.
+ * @return string Le texte chiffré sous forme hexadécimale.
+ */
+function rc4_chiffrer($cle, $texteClair) {
+    return bin2hex(rc4($cle, $texteClair));
+}
+
+
+/**
+ * Déchiffre une chaîne de caractères en hexadécimal avec RC4.
+ *
+ * @param string $cle La clé de déchiffrement (doit être la même que pour le chiffrement).
+ * @param string $texteChiffre Le texte chiffré sous forme hexadécimale.
+ * @return string Le texte déchiffré en clair.
+ */
+function rc4_dechiffrer($cle, $texteChiffre) {
+    return rc4($cle, hex2bin($texteChiffre));
+}
 
 //fonction pour calculer la moyenne
 function moyenne($serie){
