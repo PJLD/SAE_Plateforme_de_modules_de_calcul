@@ -24,20 +24,14 @@ if (isset($_SESSION['login'])) {
 
             <label for='NouveauMDP'>Nouveau mot de passe</label>
             <input type='password' name='NouveauMDP' placeholder='Nouveau mot de passe' minlength='6' required><br><br>
-
+            
+            <label for='ConfirmerMdp'>Confirmation du Mot de Passe</label>      
+            <input type='password' name='ConfirmerMdp' id='ConfirmerMdp' placeholder='Confirmation du Mot de Passe' minlength='6' required>
+           
             <button type='submit' name='ModifierMDP' style='width: 75%; background-color: #1c305f; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Modifier mon mot de passe</button>
+            
         </form>
         
-        <h3 style='margin: 10px;'>Supprimer mon compte</h3>
-        <form method='post' style='text-align: left;'>
-            <label for='Mdp'>Mot de passe</label>
-            <input type='password' name='Mdp' placeholder='Mot de passe' minlength='6' required><br><br>
-
-            <label for='ConfirmerMdp'>Confirmation du Mot de Passe</label>
-            <input type='password' name='ConfirmerMdp' placeholder='Confirmation du Mot de Passe' minlength='6' required><br><br>
-
-            <button type='submit' name='SupprimerCompte' style='width: 75%; background-color: darkred; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Supprimer mon compte</button>
-        </form>
     </div>";
 
     $cnx = mysqli_connect("localhost", "sae", "sae", "SAE");
@@ -46,6 +40,7 @@ if (isset($_SESSION['login'])) {
     if (isset($_POST['ModifierMDP'])) {
         $ancienMDP = $_POST['AncienMDP'];
         $nouveauMDP = $_POST['NouveauMDP'];
+        $confirmerMDP = $_POST['ConfirmerMdp'];
 
         $sql = "SELECT MDP, Cle FROM Comptes WHERE Login = ?";
         $stmt = mysqli_prepare($cnx, $sql);
@@ -60,25 +55,49 @@ if (isset($_SESSION['login'])) {
             $mdp_dechiffre = rc4_dechiffrer($cle_rc4, $mdp_chiffre);
 
             if ($mdp_dechiffre === $ancienMDP) {
-                $nouveauMDP_chiffre = rc4_chiffrer($cle_rc4, $nouveauMDP);
+                if ($nouveauMDP === $confirmerMDP) {
+                    if ($mdp_dechiffre !== $nouveauMDP) {
+                        $nouveauMDP_chiffre = rc4_chiffrer($cle_rc4, $nouveauMDP);
 
-                $sql_update = "UPDATE Comptes SET MDP = ? WHERE Login = ?";
-                $stmt_update = mysqli_prepare($cnx, $sql_update);
-                mysqli_stmt_bind_param($stmt_update, "ss", $nouveauMDP_chiffre, $login);
+                        $sql_update = "UPDATE Comptes SET MDP = ? WHERE Login = ?";
+                        $stmt_update = mysqli_prepare($cnx, $sql_update);
+                        mysqli_stmt_bind_param($stmt_update, "ss", $nouveauMDP_chiffre, $login);
 
-                if (mysqli_stmt_execute($stmt_update)) {
-                    echo "<p style='color: green;'>Mot de passe mis à jour avec succès.</p>";
-                    $_SESSION['mdp'] = $nouveauMDP_chiffre;
-                } else {
-                    echo "<p style='color: red;'>Erreur lors de la mise à jour du mot de passe.</p>";
+                        if (mysqli_stmt_execute($stmt_update)) {
+                            echo "<p style='color: green;'>Mot de passe mis à jour avec succès.</p>";
+                            $_SESSION['mdp'] = $nouveauMDP_chiffre;
+                        } else {
+                            echo "<p style='color: red;'>Erreur lors de la mise à jour du mot de passe.</p>";
+                        }
+                        mysqli_stmt_close($stmt_update);
+                    } else {
+                        echo "<p style='color: red;'>Choisissez un mot de passe différent de l'ancien.</p>";
+                    }
+                }else {
+                    echo "<p style='color: red;'>Les deux nouveaux mots de passe sont différents.</p>";
                 }
-                mysqli_stmt_close($stmt_update);
             } else {
                 echo "<p style='color: red;'>Ancien mot de passe incorrect.</p>";
             }
         }
         mysqli_stmt_close($stmt);
     }
+
+
+    echo "
+    <div style='text-align: center; max-width: 600px; margin: auto;'>
+        <h3 style='margin: 10px;'>Supprimer mon compte</h3>
+        <form method='post' style='text-align: left;'>
+            <label for='Mdp'>Mot de passe</label>
+            <input type='password' name='Mdp' placeholder='Mot de passe' minlength='6' required><br><br>
+
+            <label for='ConfirmerMdp'>Confirmation du Mot de Passe</label>
+            <input type='password' name='ConfirmerMdp' placeholder='Confirmation du nouveau Mot de Passe' minlength='6' required><br><br>
+
+            <button type='submit' name='SupprimerCompte' style='width: 75%; background-color: darkred; color: white; border: none; padding: 20px; margin-top: 20px; cursor: pointer;'>Supprimer mon compte</button>
+        </form>
+    </div>";
+
 
     //traitement de la suppression du compte
     if (isset($_POST['SupprimerCompte'])) {
