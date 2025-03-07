@@ -33,6 +33,7 @@ if (isset($_POST['Calculer'])) {
     $probabilites = explode(',', $_POST['Probabilites']);
     $calcul = $_POST['calcul'];
     $login = $_SESSION['login'];
+    date_default_timezone_set("Europe/Paris");
     $date = (new DateTime())->format("d/m/Y H:i:s");
     $cnx = mysqli_connect("localhost", "sae", "sae");
     $bd = mysqli_select_db($cnx, "SAE");
