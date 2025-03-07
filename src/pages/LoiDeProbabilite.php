@@ -32,7 +32,6 @@ echo"<title>Loi de Probabilité</title>
         background-color: #ddd;
     }
     .link {
-    display: inline-block;  
     padding: 10px 20px;  
     font-size: 16px;  
     font-weight: bold;  
@@ -43,6 +42,9 @@ echo"<title>Loi de Probabilité</title>
     text-decoration: none;  
     cursor: pointer;  
     transition: background-color 0.3s, transform 0.2s;
+    display: block;
+    width: fit-content;
+    margin: 20px auto;
     }
     .link:hover {
         background-color: #0056b3;
