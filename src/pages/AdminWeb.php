@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Ouvrir le fichier CSV
         if (($fp = fopen($file, "r")) !== false) {
-            $sql = "INSERT INTO Comptes (Login, MDP) VALUES (?, ?)";
+            $sql = "INSERT INTO Comptes (Login, MDP, Cle) VALUES (?, ?, ?)";
             $stmt = mysqli_prepare($cnx, $sql);
 
             while (($res = fgetcsv($fp, 1024, ",")) != false) {
@@ -83,6 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     $login = $res[0];
                     $mdp = $res[1];
                     $mdp5 = md5($mdp);
+                    $cle_unique = bin2hex(random_bytes(16));
+                    $mdp_chiffre = rc4_chiffrer($cle_unique, $mdp);
 
                     // Vérifier si le login existe déjà
                     $sql_verif = "SELECT COUNT(*) FROM Comptes WHERE Login = ?";
@@ -100,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     }
 
                     // Exécuter l'insertion
-                    mysqli_stmt_bind_param($stmt, "ss", $login, $mdp5);
+                    mysqli_stmt_bind_param($stmt, "sss", $login, $mdp_chiffre, $cle_unique);
                     if (mysqli_stmt_execute($stmt)) {
                         $messages .= "<p style='color: green; text-align: center;'>Utilisateur $login ajouté avec succès.</p>";
                         array_push($reussi, $login);
@@ -131,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 //Affichage des utilisateurs
-$sql = "SELECT * FROM Comptes";
+$sql = "SELECT Login, MDP FROM Comptes";
 $result = mysqli_query($cnx, $sql);
 
 
