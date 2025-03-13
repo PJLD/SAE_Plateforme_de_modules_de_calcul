@@ -125,8 +125,7 @@ form button:hover {
 }
 
 .resultatConteneur {
-    height: 120px;
-    max-width: 600px;
+    height: auto;
     margin: auto;
     padding: 20px;
     background-color: #f9f9f9;         /* Fond gris clair */
@@ -135,6 +134,9 @@ form button:hover {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombre subtile */
     font-family: 'Arial', sans-serif;
     text-align: center;                /* Texte centré */
+    max-width: 100%; /* Empêche un paragraphe d'être plus large que la div */
+    display: block; /* Force le respect de la largeur */
+    white-space: normal;
 }
 
 .resultatConteneur h3 {
