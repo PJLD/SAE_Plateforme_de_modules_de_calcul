@@ -29,7 +29,11 @@ function rc4($cle, $donnees) {
     $s = range(0, 255); // Initialisation du tableau S avec les valeurs de 0 à 255
     $j = 0;
     $longueurCle = strlen($cle);
+    $longueurDonnees = strlen($donnees);
 
+    if ($longueurCle<=0 || $longueurDonnees<=0){
+        return "La clé ou les données sont vides";
+    }
 
     // Initialisation de la permutation S avec la clé
     for ($i = 0; $i < 256; $i++) {
