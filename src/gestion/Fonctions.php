@@ -98,6 +98,7 @@ function moyenne($serie){
      *
      * @return float : valeur de la moyenne
      */
+    if (empty($serie)) return 0;
     if (count($serie) == 0 ) return 0;
     return array_sum($serie)/count($serie);
 }
@@ -112,6 +113,7 @@ function esperance($serie, $probabilites){
      *
      * @return float : valeur de l'esperance
      */
+    if (empty($serie) || empty($probabilites)) return 0;
     if (count($serie) != count($probabilites)) return 0;
     $esperance = 0;
     foreach($serie as $index => $valeur){
