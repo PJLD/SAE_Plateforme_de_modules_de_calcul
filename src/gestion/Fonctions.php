@@ -18,6 +18,49 @@ function gererNavBar(){
     }
 }
 
+//fonction pour calculer les racines d'un polynôme
+function calculerRacines($a, $b, $c) {
+    /**
+     * Calcule les racines du polynôme (a,b,c)
+     *
+     * @param string $a Le coefficient a.
+     * @param string $b Le coefficient b.
+     * @param string $c Le coefficient c.
+     * @return string Les racines du polynôme.
+     */
+    if ($a == 0) {
+        return "Ce n'est pas un polynôme de degré 2.";
+    }
+
+    $delta = $b * $b - 4 * $a * $c;
+
+    if ($delta > 0) {
+        $x1 = (-$b + sqrt($delta)) / (2 * $a);
+        $x2 = (-$b - sqrt($delta)) / (2 * $a);
+        return "x1 = $x1 et x2 = $x2";
+    } elseif ($delta == 0) {
+        $x = -$b / (2 * $a);
+        return "x = $x";
+    } else {
+        $reel = -$b / (2 * $a);
+        $imag = sqrt(abs($delta)) / (2 * $a);
+        return "x1 = $reel + {$imag}i et x2 = $reel - {$imag}i";
+    }
+}
+
+function convertirNombre($val) {
+    // Si l'utilisateur entre juste 'i', remplace par 1
+    if ($val === "i") {
+        return 1;
+    }
+    // Si l'utilisateur entre '-i', remplace par -1
+    if ($val === "-i") {
+        return -1;
+    }
+    // Sinon, retourne la valeur en float normalement
+    return floatval($val);
+}
+
 /**
  * Implémente l'algorithme RC4 pour chiffrer ou déchiffrer des données.
  *
