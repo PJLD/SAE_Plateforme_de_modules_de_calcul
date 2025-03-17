@@ -6,7 +6,6 @@ include("../templates/header.html");
 echo "
 <title>Historique</title>
 <style>
-    /* Styles pour le tableau */
     table {
         width: 70%;
         border-collapse: collapse;
@@ -35,42 +34,39 @@ echo "
 
 gererNavBar();
 
-$cnx = mysqli_connect("localhost", "sae", "sae");
-$bd = mysqli_select_db($cnx, "SAE");
+$cnx = mysqli_connect("localhost", "sae", "sae", "SAE");
 $login = $_SESSION['login'];
-$sql = "SELECT Login, DateHistorique, Calcul, Resultat FROM Historique WHERE Login = '$login' ORDER BY STR_TO_DATE(DateHistorique, '%d/%m/%Y %H:%i:%s') DESC";
-$sqlID = "SELECT * FROM Historique WHERE Login = '$login'";
-$resultat = mysqli_query($cnx, $sql);
-$resultatID = mysqli_query($cnx, $sqlID);
+$sql = "SELECT ID, Login, DateHistorique, Calcul, Resultat FROM Historique WHERE Login = ? ORDER BY STR_TO_DATE(DateHistorique, '%d/%m/%Y %H:%i:%s') DESC";
+$stmt = mysqli_prepare($cnx, $sql);
+mysqli_stmt_bind_param($stmt, "s", $login);
+mysqli_stmt_execute($stmt);
+$resultat = mysqli_stmt_get_result($stmt);
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Historique des Calculs</h1>";
-echo"
+echo "
 <form method='post' style='all: unset; display: flex; justify-content: center; margin-bottom: 50px;'>
     <button type='submit' name='SupprimerHistorique' style='font-family: cursive; padding: 5px; max-height: 80px; width: 14%; font-size: 14px; background-color: darkred; color: white; border: none; padding: 5px; margin-top: 5px; cursor: pointer;'>Supprimer mon historique</button>
 </form>";
 
-//suppression de l'historique de l'utilisateur
+// Suppression de tout l'historique
 if (isset($_POST['SupprimerHistorique'])) {
-    $cnx = mysqli_connect("localhost", "sae", "sae");
-    $bd = mysqli_select_db($cnx, "SAE");
     $suppressionHistorique = "DELETE FROM Historique WHERE Login = ?";
     $stmt = mysqli_prepare($cnx, $suppressionHistorique);
-    $login = $_SESSION['login'];
     mysqli_stmt_bind_param($stmt, "s", $login);
     mysqli_stmt_execute($stmt);
-    header("Refresh: 0");
     mysqli_stmt_close($stmt);
+    header("Refresh: 0");
+    exit();
 }
 
 echo "<table>";
 $lignes = mysqli_fetch_assoc($resultat);
-$lignesID = mysqli_fetch_assoc($resultatID);
 if ($lignes) {
     echo "<tr>";
     foreach ($lignes as $key => $value) {
         echo "<th>$key</th>";
     }
-    echo "<th>Supprimer Historique</th>";
+    echo "<th>Supprimer</th>";
     echo "</tr>";
 
     do {
@@ -78,7 +74,7 @@ if ($lignes) {
         foreach ($lignes as $value) {
             echo "<td>$value</td>";
         }
-        echo "<td><a href='?deleteHistorique=" . $lignesID['ID'] . "' class='delete-link'>Supprimer</a></td>";
+        echo "<td><a href='?deleteHistorique=" . $lignes['ID'] . "' class='delete-link'>Supprimer</a></td>";
         echo "</tr>";
     } while ($lignes = mysqli_fetch_assoc($resultat));
 } else {
@@ -86,14 +82,15 @@ if ($lignes) {
 }
 echo "</table>";
 
-//Suppression d'utilisateurs
+// Suppression d'une seule ligne de l'historique
 if (isset($_GET['deleteHistorique'])) {
     $id = $_GET['deleteHistorique'];
     $suppressionHistorique = "DELETE FROM Historique WHERE ID = ?";
     $stmt = mysqli_prepare($cnx, $suppressionHistorique);
     mysqli_stmt_bind_param($stmt, "s", $id);
-    if (mysqli_stmt_execute($stmt)){
+    if (mysqli_stmt_execute($stmt)) {
         header("Location: Historique.php");
+        exit();
     } else {
         echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression.</p>";
     }
@@ -101,5 +98,4 @@ if (isset($_GET['deleteHistorique'])) {
 }
 
 mysqli_close($cnx);
-
 include("../templates/footer.html");

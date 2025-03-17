@@ -109,7 +109,7 @@ if (isset($_GET['historique'])) {
     $cnx = mysqli_connect("localhost", "sae", "sae", "SAE");
     $sql = "INSERT INTO Historique (login, DateHistorique, calcul, resultat) VALUES (?, ?, ?, ?)";
     $stmt = mysqli_prepare($cnx, $sql);
-    mysqli_stmt_bind_param($stmt, "sssd", $login, $date, $calcul, $result);
+    mysqli_stmt_bind_param($stmt, "ssss", $login, $date, $calcul, $result);
 
     if (mysqli_stmt_execute($stmt)) {
         echo "<p style='color: green; text-align: center;'>Le résultat a été enregistré dans votre historique</p>";
