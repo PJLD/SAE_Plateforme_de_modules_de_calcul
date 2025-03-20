@@ -61,76 +61,7 @@ if (isset($_GET['delete'])) {
     mysqli_stmt_close($stmt);
 }
 
-//ajout avec csv
-$messages = "";
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    if (isset($_FILES['csvFile']) && $_FILES['csvFile']['error'] === UPLOAD_ERR_OK) {
 
-        // Chemin du fichier temporaire
-        $file = $_FILES['csvFile']['tmp_name'];
-
-        // Tableaux pour les logs
-        $reussi = [];
-        $rate = [];
-
-        // Ouvrir le fichier CSV
-        if (($fp = fopen($file, "r")) !== false) {
-            $sql = "INSERT INTO Comptes (Login, MDP, Cle) VALUES (?, ?, ?)";
-            $stmt = mysqli_prepare($cnx, $sql);
-
-            while (($res = fgetcsv($fp, 1024, ",")) != false) {
-                if (count($res) >= 2) {
-                    $login = $res[0];
-                    $mdp = $res[1];
-                    $mdp5 = md5($mdp);
-                    $cle_unique = bin2hex(random_bytes(16));
-                    $mdp_chiffre = rc4_chiffrer($cle_unique, $mdp);
-
-                    // Vérifier si le login existe déjà
-                    $sql_verif = "SELECT COUNT(*) FROM Comptes WHERE Login = ?";
-                    $stmt_verif = mysqli_prepare($cnx, $sql_verif);
-                    mysqli_stmt_bind_param($stmt_verif, "s", $login);
-                    mysqli_stmt_execute($stmt_verif);
-                    mysqli_stmt_bind_result($stmt_verif, $existe);
-                    mysqli_stmt_fetch($stmt_verif);
-                    mysqli_stmt_close($stmt_verif);
-
-                    if ($existe > 0) {
-                        $messages .= "<p style='color: orange; text-align: center;'>Utilisateur $login existe déjà.</p>";
-                        array_push($rate, $login);
-                        continue;
-                    }
-
-                    // Exécuter l'insertion
-                    mysqli_stmt_bind_param($stmt, "sss", $login, $mdp_chiffre, $cle_unique);
-                    if (mysqli_stmt_execute($stmt)) {
-                        $messages .= "<p style='color: green; text-align: center;'>Utilisateur $login ajouté avec succès.</p>";
-                        array_push($reussi, $login);
-                    } else {
-                        $messages .= "<p style='color: red; text-align: center;'>Impossible d'ajouter l'utilisateur $login.</p>";
-                        array_push($rate, $login);
-                    }
-                } else {
-                    $messages .= "<p style='color: orange; text-align: center;'>format incorrect : utilisateur pas ajouté.</p>";
-                }
-            }
-            fclose($fp);
-            mysqli_stmt_close($stmt);
-
-            // Enregistrer les logs
-            foreach ($reussi as $user) {
-                log_inscription($user, true);
-            }
-            foreach ($rate as $user) {
-                log_inscription($user, false);
-            }
-        } else {
-            $messages .= "<p style='color: red; text-align: center;'>Erreur lors de l'ouverture du fichier CSV.</p>";
-        }
-    } else {
-        echo "<p style='color: red; text-align: center;'>Erreur lors du téléchargement du fichier.</p>";
-    }
-}
 
 //Affichage des utilisateurs
 $sql = "SELECT Login, MDP FROM Comptes";
@@ -168,15 +99,7 @@ if ($lignes) {
 }
 echo "</table>";
 
-echo "
-<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 80px;'>Importer un fichier CSV</h1>
-<form method='post' enctype='multipart/form-data'>
-    <label for='csvFile'>Importez votre fichier CSV :</label>
-    <input type='file' id='csvFile' name='csvFile' accept='.csv'>
-    <button type='submit'>OK</button>
-</form>";
 
-echo "<p>$messages</p>";
 
 mysqli_close($cnx);
 
