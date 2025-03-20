@@ -19,7 +19,8 @@ function gererNavBar(){
 }
 
 //fonction pour calculer les racines d'un polynôme
-function calculerRacines($a, $b, $c) {
+function calculerRacines($a, $b, $c)
+{
     /**
      * Calcule les racines du polynôme (a,b,c)
      *
@@ -37,28 +38,15 @@ function calculerRacines($a, $b, $c) {
     if ($delta > 0) {
         $x1 = (-$b + sqrt($delta)) / (2 * $a);
         $x2 = (-$b - sqrt($delta)) / (2 * $a);
-        return "x1 = $x1 et x2 = $x2";
+        return "x1 = " . number_format($x1, 4, '.', '') . " et x2 = " . number_format($x2, 4, '.', '');
     } elseif ($delta == 0) {
         $x = -$b / (2 * $a);
-        return "x = $x";
+        return "x = " . number_format($x, 4, '.', '');
     } else {
         $reel = -$b / (2 * $a);
         $imag = sqrt(abs($delta)) / (2 * $a);
-        return "x1 = $reel + {$imag}i et x2 = $reel - {$imag}i";
+        return "x1 =  " . number_format($reel, 4, '.', '') . " + " . number_format($imag, 4, '.', '') . "i et x2 = " . number_format($reel, 4, '.', '') . " - " . number_format($imag, 4, '.', '') . "i";
     }
-}
-
-function convertirNombre($val) {
-    // Si l'utilisateur entre juste 'i', remplace par 1
-    if ($val === "i") {
-        return 1;
-    }
-    // Si l'utilisateur entre '-i', remplace par -1
-    if ($val === "-i") {
-        return -1;
-    }
-    // Sinon, retourne la valeur en float normalement
-    return floatval($val);
 }
 
 /**
