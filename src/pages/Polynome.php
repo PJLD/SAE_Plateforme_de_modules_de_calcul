@@ -35,13 +35,13 @@ echo "
 <h2>Module Polynôme</h2>
 <form method='post'>
     <label for='a'>Coefficient a</label>
-    <input type='text' pattern='^(-?(i|\d+(\.\d*)?i?)$)' name='a' id='a' placeholder='a' required>
+    <input type='text' name='a' id='a' placeholder='a' required>
 
     <label for='b'>Coefficient b</label>
-    <input type='text' pattern='^(-?(i|\d+(\.\d*)?i?)$)' name='b' id='b' placeholder='b' required>
+    <input type='text' name='b' id='b' placeholder='b' required>
     
     <label for='c'>Coefficient c</label>
-    <input type='text' pattern='^(-?(i|\d+(\.\d*)?i?)$)' name='c' id='c' placeholder='c' required>
+    <input type='text' name='c' id='c' placeholder='c' required>
 
     <button type='submit' name='Calculer'>Calculer</button>
 </form>";
@@ -53,9 +53,21 @@ if (isset($_POST['Calculer'])) {
         exit();
     }
 
-    $a = convertirNombre($_POST['a']);
-    $b = convertirNombre($_POST['b']);
-    $c = convertirNombre($_POST['c']);
+    $a = $_POST['a'];
+    $b = $_POST['b'];
+    $c = $_POST['c'];
+
+    if (!is_numeric($a) || !is_numeric($b) || !is_numeric($c)) {
+        echo "<div class='resultatConteneur'>";
+        echo "<p style='color: red;'>Erreur : Toutes les valeurs doivent être des nombres (entiers ou flottants).</p>";
+        echo "</div>";
+        include("../templates/footer.html");
+        exit;
+    }
+
+    $a = floatval($_POST['a']);
+    $b = floatval($_POST['b']);
+    $c = floatval($_POST['c']);
 
     $resultat = calculerRacines($a, $b, $c);
     $calcul = "Polynôme : ({$a},{$b},{$c})";
