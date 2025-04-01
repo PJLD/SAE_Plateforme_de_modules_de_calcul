@@ -33,7 +33,6 @@ echo"
     <div class='video-container'>
         <video width='600' controls autoplay muted>
         <source src='../video/Video.mp4' type='video/mp4'></video>
-    </div>
-</div>";
+    </div>";
 
 include("../templates/footer.html");
