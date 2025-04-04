@@ -268,7 +268,7 @@ function methodeDeSimpson($a, $b, $mu, $lambda, $n) {
 }
 
 
-function log_suppression($login, $etat) {
+function log_suppression($ip, $login, $etat) {
     /**
      * Enregistre dans les logs les suppressions d'utilisateurs.
      *
@@ -281,14 +281,14 @@ function log_suppression($login, $etat) {
     $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "suppression OK" : "suppression KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
-    $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Logs (Date, IP, Login, Statut) VALUES (?, ?, ?, ?)";
     mysqli_select_db($cnx, "SAE");
     $stmt = mysqli_prepare($cnx, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $date, $login, $statut);
+    mysqli_stmt_bind_param($stmt, "ssss", $date, $ip, $login, $statut);
     mysqli_stmt_execute($stmt);
 }
 
-function log_inscription($login, $etat) {
+function log_inscription($ip, $login, $etat) {
     /**
      * Enregistre dans les logs les inscriptions d'utilisateurs.
      *
@@ -301,14 +301,14 @@ function log_inscription($login, $etat) {
     $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "inscription OK" : "inscription KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
-    $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Logs (Date, IP, Login, Statut) VALUES (?, ?, ?, ?)";
     mysqli_select_db($cnx, "SAE");
     $stmt = mysqli_prepare($cnx, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $date, $login, $statut);
+    mysqli_stmt_bind_param($stmt, "ssss", $date,$ip, $login, $statut);
     mysqli_stmt_execute($stmt);
 }
 
-function log_connexion($login, $etat) {
+function log_connexion($ip, $login, $etat) {
     /**
      * Enregistre dans les logs les connexions d'utilisateurs.
      *
@@ -321,14 +321,14 @@ function log_connexion($login, $etat) {
     $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "connexion OK" : "connexion KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
-    $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Logs (Date, IP, Login, Statut) VALUES (?, ?, ?, ?)";
     mysqli_select_db($cnx, "SAE");
     $stmt = mysqli_prepare($cnx, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $date, $login, $statut);
+    mysqli_stmt_bind_param($stmt, "ssss", $date, $ip, $login, $statut);
     mysqli_stmt_execute($stmt);
 }
 
-function log_deconnexion($login, $etat) {
+function log_deconnexion($ip, $login, $etat) {
     /**
      * Enregistre dans les logs les déconnexions d'utilisateurs.
      *
@@ -341,9 +341,9 @@ function log_deconnexion($login, $etat) {
     $date = (new DateTime())->format("d/m/Y H:i:s");
     $statut = $etat ? "deconnexion OK" : "deconnexion KO";
     $cnx = mysqli_connect("localhost", "sae", "sae");
-    $sql = "INSERT INTO Logs (Date, Login, Statut) VALUES (?, ?, ?)";
+    $sql = "INSERT INTO Logs (Date, IP, Login, Statut) VALUES (?, ?, ?, ?)";
     mysqli_select_db($cnx, "SAE");
     $stmt = mysqli_prepare($cnx, $sql);
-    mysqli_stmt_bind_param($stmt, "sss", $date, $login, $statut);
+    mysqli_stmt_bind_param($stmt, "ssss", $date, $ip, $login, $statut);
     mysqli_stmt_execute($stmt);
 }

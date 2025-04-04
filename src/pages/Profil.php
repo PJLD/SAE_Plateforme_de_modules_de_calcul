@@ -125,13 +125,15 @@ if (isset($_SESSION['login'])) {
                     mysqli_stmt_bind_param($stmt_delete, "s", $login);
 
                     if (mysqli_stmt_execute($stmt_delete)) {
-                        log_suppression($login, true);
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                        log_suppression($ip, $login, true);
                         session_destroy();
                         header("Location: Accueil.php");
                         exit();
                     } else {
                         echo "<p style='color: red;'>Erreur lors de la suppression du compte.</p>";
-                        log_suppression($login, false);
+                        $ip = $_SERVER['REMOTE_ADDR'];
+                        log_suppression($ip, $login, false);
                     }
                     mysqli_stmt_close($stmt_delete);
                 } else {

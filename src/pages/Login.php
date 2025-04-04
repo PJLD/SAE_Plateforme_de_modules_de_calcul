@@ -48,14 +48,16 @@ if(isset($_POST['Connexion'])){
             session_start();
             $_SESSION['login'] = $login;
             $_SESSION['mdp'] = $mdp;
+            $ip = $_SERVER['REMOTE_ADDR'];
             header("Location: Accueil.php");
-            log_connexion($login, true);
+            log_connexion($ip, $login, true);
             exit();
         }
     }
 
     echo "<p style='color: red; text-align: center;'>Login ou mot de passe incorrect</p>";
-    log_connexion($login, false);
+    $ip = $_SERVER['REMOTE_ADDR'];
+    log_connexion($ip, $login, false);
     mysqli_stmt_close($stmt);
     mysqli_close($cnx);
 }

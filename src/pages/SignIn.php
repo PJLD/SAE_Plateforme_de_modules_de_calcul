@@ -55,7 +55,8 @@ if (isset($_POST["Inscription"])) {
 
     if (!isset($_COOKIE['captcha']) || $captcha != $_COOKIE['captcha']) {
         echo "<p style='color: red; text-align: center;'>Captcha Incorrect. Veuillez réessayer.</p>";
-        log_inscription($Login, false);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        log_inscription($ip, $Login, false);
         mysqli_close($cnx);
     } else {
         $sql = "INSERT INTO  Comptes (Login, MDP, Cle) VALUES (?, ?, ?)";
@@ -74,21 +75,25 @@ if (isset($_POST["Inscription"])) {
 
         if ($existe > 0) {
             echo"<p style='color: red; text-align: center;'>Utilisateur $Login existe déjà.</p>";
-            log_inscription($Login, false);
+            $ip = $_SERVER['REMOTE_ADDR'];
+            log_inscription($ip, $Login, false);
             mysqli_close($cnx);
         } else {
             if ($Mdp == $confirmerMdp) {
                 mysqli_stmt_bind_param($stmt, "sss", $Login, $mdp2, $cle_unique);
                 if (mysqli_stmt_execute($stmt)) {
-                    log_inscription($Login, true);
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    log_inscription($ip, $Login, true);
                     header("Location: Login.php");
                 } else {
                     echo "<p style='color: red; text-align: center;'>Erreur lors de l'inscription. Veuillez réessayer</p>";
-                    log_inscription($Login, false);
+                    $ip = $_SERVER['REMOTE_ADDR'];
+                    log_inscription($ip, $Login, false);
                 }
             } else {
                 echo "<p style='color: red; text-align: center;'>Les deux mots de passe sont différents.</p>";
-                log_inscription($Login, false);
+                $ip = $_SERVER['REMOTE_ADDR'];
+                log_inscription($ip, $Login, false);
             }
             mysqli_stmt_close($stmt);
             mysqli_close($cnx);

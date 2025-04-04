@@ -60,21 +60,25 @@ if (isset($_POST["Créer"])) {
 
     if ($existe > 0) {
         echo "<p style='color: red; text-align: center;'>Utilisateur $Login existe déjà.</p>";
-        log_inscription($Login, false);
+        $ip = $_SERVER['REMOTE_ADDR'];
+        log_inscription($ip, $Login, false);
         mysqli_close($cnx);
     } else {
         if ($Mdp == $confirmerMdp) {
             mysqli_stmt_bind_param($stmt, "sss", $Login, $mdp2, $cle_unique);
             if (mysqli_stmt_execute($stmt)) {
-                log_inscription($Login, true);
+                $ip = $_SERVER['REMOTE_ADDR'];
+                log_inscription($ip, $Login, true);
                 echo "<p style='color: green; text-align: center;'>Utilisateur créer avec succès</p>";
             } else {
                 echo "<p style='color: red; text-align: center;'>Erreur lors de l'inscription. Veuillez réessayer</p>";
-                log_inscription($Login, false);
+                $ip = $_SERVER['REMOTE_ADDR'];
+                log_inscription($ip, $Login, false);
             }
         } else {
             echo "<p style='color: red; text-align: center;'>Les deux mots de passe sont différents.</p>";
-            log_inscription($Login, false);
+            $ip = $_SERVER['REMOTE_ADDR'];
+            log_inscription($ip, $Login, false);
         }
         mysqli_stmt_close($stmt);
         mysqli_close($cnx);
@@ -139,10 +143,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // Enregistrer les logs
             foreach ($reussi as $user) {
-                log_inscription($user, true);
+                $ip = $_SERVER['REMOTE_ADDR'];
+                log_inscription($ip, $user, true);
             }
             foreach ($rate as $user) {
-                log_inscription($user, false);
+                $ip = $_SERVER['REMOTE_ADDR'];
+                log_inscription($ip, $user, false);
             }
         } else {
             $messages .= "<p style='color: red; text-align: center;'>Erreur lors de l'ouverture du fichier CSV.</p>";

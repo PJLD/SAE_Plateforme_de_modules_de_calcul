@@ -9,7 +9,8 @@ if (isset($_SESSION['login'])) {
     $login = "Utilisateur inconnu";
 }
 
-log_deconnexion($login, true);
+$ip = $_SERVER['REMOTE_ADDR'];
+log_deconnexion($ip, $login, true);
 session_unset();
 session_destroy(); // Détruire la session
 
