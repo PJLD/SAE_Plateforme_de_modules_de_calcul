@@ -12,15 +12,17 @@ $dateFilterFormatted = date('d/m/Y', strtotime($dateFilter));
 $whereClause = "WHERE Date LIKE '$dateFilterFormatted%'";
 
 // Requête SQL pour afficher les logs
-$sql = "SELECT Date, Login, Statut FROM Logs $whereClause ORDER BY STR_TO_DATE(Date, '%d/%m/%Y %H:%i:%s') DESC;";
+$sql = "SELECT Date, Login, Statut, IP FROM Logs $whereClause ORDER BY STR_TO_DATE(Date, '%d/%m/%Y %H:%i:%s') DESC;";
 $resultat = mysqli_query($cnx, $sql);
 
-// Téléchargement JSON
+$sql2 = "SELECT * FROM Logs ORDER BY STR_TO_DATE(Date, '%d/%m/%Y %H:%i:%s') DESC;";
+$resultat2 = mysqli_query($cnx, $sql2);
+
 if (isset($_POST['download_json'])) {
     header('Content-Type: application/json');
     header('Content-Disposition: attachment; filename="logs.json"');
     $logs = [];
-    while ($row = mysqli_fetch_assoc($resultat)) {
+    while ($row = mysqli_fetch_assoc($resultat2)) {
         $logs[] = $row;
     }
     echo json_encode($logs, JSON_PRETTY_PRINT);
@@ -53,10 +55,15 @@ echo "
    tr:hover {
        background-color: #ddd;
    }
-   form {
-       text-align: center;
-       margin-bottom: 20px;
-   }
+   .formulaire {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .formulaire form {
+      display: flex;
+      flex-direction: column;
+    }
 </style>
 </head>
 <body>";
@@ -109,9 +116,6 @@ if (isset($_GET['delete_log']) && isset($_GET['delete_login'])) {
         echo "<p style='color: red; text-align: center;'>Erreur lors de la suppression du log.</p>";
     }
     mysqli_stmt_close($stmt);
-
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit();
 }
 
 // Suppression de tous les logs
@@ -124,36 +128,39 @@ if (isset($_POST['delete_all'])) {
 
 echo "<h1 style='text-align: center; color: #1c305f; margin-top: 80px; margin-bottom: 50px;'>Journal d'Activité</h1>";
 
-// Formulaire de filtre par date
-echo "
-<form method='post'>
-   <label for='date_filter'>Afficher une journée :</label>
-   <input type='date' name='date_filter' id='date_filter' value='$dateFilter'>
-   <button type='submit'>Filtrer</button>
-</form>";
-
-// Formulaires de suppression et export JSON
-echo "
-<form method='post'>
-   <button type='submit' name='delete_day'>Supprimer tous les logs de cette journée</button>
-   <button type='submit' name='delete_all'>Supprimer tous les logs</button>
-   <button type='submit' name='download_json'>Télécharger les logs en JSON</button>
-</form>";
+echo "<div class='formulaire'>
+    <form method='post'>
+       <label for='date_filter'>Afficher une journée :</label>
+       <input type='date' name='date_filter' id='date_filter' value='$dateFilter'>
+       <button type='submit'>Filtrer</button>
+    </form>
+   <form method='post'>
+       <button style='background-color: darkred; color: white; margin-bottom: 10px; width: auto; white-space: nowrap;' type='submit' name='delete_day'>Supprimer tous les logs de cette journée</button>
+   </form>
+   <form method='post'>
+       <button style='background-color: darkred; color: white; margin-bottom: 10px; width: auto; white-space: nowrap;' type='submit' name='delete_all'>Supprimer tous les logs</button>      
+   </form>
+   <form method='post'>
+       <button type='submit' name='download_json'>Télécharger les logs en JSON</button>
+   </form>
+</div>";
 
 // Affichage du tableau des logs
 echo "<table>";
 $lignes = mysqli_fetch_assoc($resultat);
 if ($lignes) {
     echo "<tr>";
-    foreach ($lignes as $key => $value) {
-        echo "<th>$key</th>";
-    }
+    echo "<th>Date</th>";
+    echo "<th>IP</th>";
+    echo "<th>Login</th>";
+    echo "<th>Statut</th>";
     echo "<th>Supprimer</th>";
     echo "</tr>";
 
     do {
         echo "<tr>";
         echo "<td>" . $lignes['Date'] . "</td>";
+        echo "<td>" . $lignes['IP'] . "</td>";
         echo "<td>" . $lignes['Login'] . "</td>";
         echo "<td>" . $lignes['Statut'] . "</td>";
         echo "<td><a href='?delete_log=" . urlencode($lignes['Date']) . "&delete_login=" . urlencode($lignes['Login']) . "' class='delete-link'>Supprimer</a></td>";
